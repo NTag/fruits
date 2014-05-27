@@ -1,0 +1,4 @@
+config.php
+development.log
+data/
+vendor/

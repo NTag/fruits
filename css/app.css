@@ -1,0 +1,125 @@
+*, h1, h2, h3, h4, h5, h6 {
+	font-family: 'Ubuntu', sans-serif;
+}
+body {
+    background-color: rgb(23, 24, 27);
+    color: white;
+    padding-top: 10px;
+}
+#header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: rgb(23, 24, 27);
+    opacity: 0.8;
+    z-index: 100000000;
+}
+.barred {
+    background:linear-gradient(to bottom, black, rgb(23, 24, 27));
+    clear: both;
+    height: 5px;
+}
+#titre {
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 1.2em;
+    margin-top: 12px;
+}
+#menu {
+    width: 100%;
+}
+#menu #categories {
+    float: left;
+}
+#categories .cat {
+    display: inline-block;
+    padding: 8px;
+    letter-spacing: 1px;
+    color: #c6c6c6;
+    min-width: 100px;
+    text-align: center;
+    font-size: 1.2em;
+}
+.cat.actif {
+    border-bottom: 5px solid #2ba6cb;
+}
+#options {
+	float: right;
+	padding-right: 20px;
+	margin-bottom: -10px;
+}
+#body {
+    clear: both;
+    padding: 20px;
+    margin-top: 70px;
+}
+.legende {
+	color: gray;
+	font-size: 0.6em;
+	margin-top: -6px;
+}
+input[type=text] {
+	background: none;
+	color: white;
+	border-radius: 5px;
+	height: 30px;
+}
+input[type=text]:focus {
+	background: none;
+}
+#serie-focus {
+	position: fixed;
+	top: 20%;
+	left: 10%;
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
+}
+.blur-out {
+    -webkit-filter: blur(8px);
+    opacity: 0.8;
+    -webkit-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+.bsaison {
+}
+.numsaison {
+	position: relative;
+	background-color: rgba(23, 24, 27, 0.8);
+    width: 100%;
+    top: -40px;
+    margin-bottom: -20px;
+}
+h1, h2, h3, h4, h5, h6 {
+	color: white;
+}
+table, tr, td, th, tbody, thead {
+	border-collapse: collapse;
+}
+table {
+	background-color: rgba(23, 24, 27, 0.8);
+	padding: 8px;
+	width: 100%;
+}
+td {
+	padding-left: 20px;
+}
+td, th {
+	padding: 10px;
+}
+.hover {
+	background-color: rgb(25,44,77);	
+}
+.calt {
+	background-color: rgb(31,32,37);
+}
+.secondc {
+	color: rgb(135,140,144);
+}
+tr {
+	cursor: pointer;
+}
+.flashy {
+	color: #2ba6cb;
+}

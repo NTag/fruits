@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="small-12 medium-3 large-2 columns"><img src="/fruits/api/data/series/poster/{{ serie.tmdbid }}.jpg" alt="{{ serie.nom }}" /></div>
+  <div class="small-12 medium-9 large-10 columns">
+  	<h2>{{ serie.nom }}</h2>
+  	<br />
+  	<span ng-show="serie.tin_production">Depuis </span>{{ serie.fyear }}<span ng-hide="serie.tin_production">-{{ serie.lyear }}</span> • {{ serie.tepisode_run_time }} min • {{ serie.tgenres }} • {{ serie.torigin_country }} ({{ serie.tnetwork }}) • <span ng-bind-html="serie.tpopularity | stars"></span><br /><br /><br />
+  	<p class="text-justify">
+  		{{ serie.toverview }}
+  	</p>
+  </div>
+</div>
+
+<div class="row">
+	<div class="small-12 medium-3 large-2 columns">
+		<h3>Saisons</h3>
+		<table>
+			<tbody>
+				<tr ng-repeat="saison in serie.saisons" ng-click="affep(saison.id, saison.numero)" ng-class="{calt: $even && nsaison != saison.numero, hover: nsaison == saison.numero}">
+					<td>Saison {{ saison.numero }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="small-12 medium-9 large-5 columns">
+		<div ng-show="fep">
+		<h3>Épisodes</h3>
+		<table>
+			<tbody>
+				<tr ng-repeat="ep in episodes" ng-class="{calt: $even && epn != ep.episode, hover: epn == ep.episode}" ng-click="affepf(ep.episode, ep.ep, ep.sub)" class="secondc">
+					<td class="text-center"><strong>{{ ep.episode | affZero }}</strong></td>
+					<td>{{ ep.tname }}</td>
+					<td class="text-center">{{ ep.tdate | amCalendar }}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	<div class="small-12 medium-12 large-5 columns">
+	<div ng-show="fepf">
+		<h3>Fichiers</h3>
+		<table>
+			<tbody>
+				<tr ng-repeat="fichier in epf" ng-class-odd="'calt'">
+					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}">{{ fichier.nom }}</a></td>
+					<td class="text-center">{{ fichier.taille | humanSize }}</td>
+					<td class="text-center">{{ fichier.serveur }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div ng-show="eps.length > 0">
+		<h3>Sous-Titres</h3>
+		<table>
+			<tbody>
+				<tr ng-repeat="fichier in eps" ng-class-odd="'calt'">
+					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}">{{ fichier.nom }}</a></td>
+					<td class="text-center">{{ fichier.taille | humanSize }}</td>
+					<td class="text-center">{{ fichier.serveur }}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	</div>
+</div>
+
+<!--
+<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-6 text-center">
+    <li ng-repeat="saison in serie.saisons">
+    	<a title="Saison {{ saison.numero }}" ng-click="affep(saison.id, saison.numero)">
+	        <img ng-src="/fruits/api/data/series/poster/{{ serie.tmdbid }}_s{{ saison.numero }}.jpg" alt="Saison {{ saison.numero }}" ng-click="affep(saison.id)" /><br />
+	        <div class="numsaison">Saison {{ saison.numero }}</div>
+    	</a>
+    </li>
+</ul>
+-->
