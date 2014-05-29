@@ -21,8 +21,7 @@ fruitsApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: 'partials/list-films.html',
-        controller: 'FilmsListCtrl'
+        redirectTo: '/films'
       }).
       when('/series', {
         templateUrl: 'partials/serie-list.html',
@@ -32,7 +31,15 @@ fruitsApp.config(['$routeProvider',
         templateUrl: 'partials/serie.html',
         controller: 'SerieCtrl'
       }).
+      when('/films', {
+        templateUrl: 'partials/film-list.html',
+        controller: 'FilmsListCtrl'
+      }).
+      when('/films/:id', {
+        templateUrl: 'partials/film.html',
+        controller: 'FilmCtrl'
+      }).
       otherwise({
-        redirectTo: '/series'
+        redirectTo: '/films'
       });
   }]);

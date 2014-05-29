@@ -10,6 +10,12 @@ fruitsServices.factory('Serie', ['$resource',
       query: {method:'GET', isArray:true}
     });
   }]);
+fruitsServices.factory('Film', ['$resource',
+  function($resource){
+    return $resource('/fruits/api/films/:id', {}, {
+      query: {method:'GET', isArray:true}
+    });
+  }]);
 fruitsServices.factory('Saison', ['$resource',
   function($resource){
     return $resource('/fruits/api/series/saison/:id');

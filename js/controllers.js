@@ -7,6 +7,8 @@ var fruitsControllers = angular.module('fruitsControllers', []);
 fruitsControllers.controller('SeriesListCtrl', ['$scope', '$rootScope', 'Serie', 'Saison',
   function($scope, $rootScope, Serie, Saison) {
     $rootScope.page = 'series';
+    $rootScope.rechercher = '';
+    document.getElementById('rechercher').focus();
     $scope.focus = false;
     $scope.fep = false;
     $scope.series = Serie.query();
@@ -19,6 +21,7 @@ fruitsControllers.controller('SeriesListCtrl', ['$scope', '$rootScope', 'Serie',
 fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Saison', '$routeParams',
   function($scope, $rootScope, Serie, Saison, $routeParams) {
     $rootScope.page = 'series';
+    $rootScope.rechercher = '';
     $scope.serie = Serie.get({id: $routeParams.id});
     $scope.nsaison = -1;
     
@@ -46,16 +49,17 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
 		}
     };
   }]);
-
-/*
-phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone',
-  function($scope, $routeParams, Phone) {
-    $scope.phone = Phone.get({phoneId: $routeParams.phoneId}, function(phone) {
-      $scope.mainImageUrl = phone.images[0];
-    });
-
-    $scope.setImage = function(imageUrl) {
-      $scope.mainImageUrl = imageUrl;
-    }
+fruitsControllers.controller('FilmsListCtrl', ['$scope', '$rootScope', 'Film',
+  function($scope, $rootScope, Film) {
+    $rootScope.page = 'films';
+    $rootScope.rechercher = '';
+    document.getElementById('rechercher').focus();
+    $scope.fep = false;
+    $scope.films = Film.query();
   }]);
-*/
+fruitsControllers.controller('FilmCtrl', ['$scope', '$rootScope', 'Film', '$routeParams',
+  function($scope, $rootScope, Film, $routeParams) {
+    $rootScope.rechercher = '';
+    $rootScope.page = 'films';
+    $scope.film = Film.get({id: $routeParams.id});
+  }]);

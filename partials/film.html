@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="small-12 medium-3 large-2 columns"><img src="/fruits/api/data/films/poster/{{ film.tmdbid }}.jpg" alt="{{ film.titlefr }}" /></div>
+  <div class="small-12 medium-9 large-10 columns">
+  	<h2>{{ film.titlefr }}</h2>
+  	<br />
+  	{{ film.release_date | amCalendar }} • {{ film.runtime | duree }} • {{ film.genres }} • {{ film.production }} • <span ng-bind-html="film.vote | stars"></span><br /><br /><br />
+  	<p class="text-justify">
+  		{{ film.overview }}
+  	</p>
+  </div>
+</div>
+
+<div class="row">
+	<div class="small-12 columns">
+		<h3>Fichiers</h3>
+		<table>
+			<tbody>
+				<tr ng-repeat="fichier in film.fichiers" ng-class-odd="'calt'">
+					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}">{{ fichier.nom }}</a></td>
+					<td class="text-center">{{ fichier.langue }}</td>
+					<td class="text-center">{{ fichier.qualite }}</td>
+					<td class="text-center">{{ fichier.taille | humanSize }}</td>
+					<td class="text-center">{{ fichier.serveur }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div ng-show="film.sub.length > 0">
+		<h3>Sous-Titres</h3>
+		<table>
+			<tbody>
+				<tr ng-repeat="fichier in film.sub" ng-class-odd="'calt'">
+					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}">{{ fichier.nom }}</a></td>
+					<td class="text-center">{{ fichier.langue }}</td>
+					<td class="text-center">{{ fichier.taille | humanSize }}</td>
+					<td class="text-center">{{ fichier.serveur }}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+</div>

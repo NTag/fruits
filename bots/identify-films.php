@@ -1,0 +1,77 @@
+<?php
+require('bdd.php');
+$bdd = new PDO(SMSDSN, SMSUSERNAME, SMSPASSWORD);
+
+// SQL
+$reqAddFilmF = $bdd->prepare("INSERT INTO filmsf
+	VALUES(:file, :tmdbid, :langue, :qualite, :sub)");
+
+$reqAllFiles = $bdd->prepare("SELECT id, nom, chemin_complet
+	FROM fichiers
+	WHERE LOWER(chemin_complet) LIKE '%/film%' AND supprime = 0 AND type <> 'dossier' AND taille > 2000 AND id NOT IN (SELECT fichier FROM filmsf)");
+$reqAllFiles->execute();
+$files = $reqAllFiles->fetchAll();
+$reqAllFiles->closeCursor();
+
+$total = count($files);
+$cinqp = ceil($total / 20);
+$last = (-1) * $cinqp * 3;
+
+echo $total . " fichiers à identifier\n\n";
+$i = 0;
+foreach ($files as $f) {
+	$pourc = ceil($i / $total * 100);
+	if ($pourc % 10 == 0 and ($i - $last) > $cinqp) {
+		$last = $i;
+		echo "\n" . $pourc . '%  ';
+	}
+	$i++;
+
+	$guessit = shell_exec('guessit -a ' . escapeshellarg($f['nom']));
+	$guessit = str_replace('Volap\u00fck', 'VO', $guessit);
+	$infos = json_decode(substr($guessit, strpos($guessit, '{')));
+	
+	// Recherche de l'id sur tmdb
+	if (isset($infos->year)) {
+		$end = '&year=' . $infos->year->value;
+	} else {
+		$end = '';
+	}
+	if (!isset($infos->title)) {
+		echo 'X';
+		continue;
+	}
+	
+	$searchApi = json_decode(file_get_contents('https://api.themoviedb.org/3/search/movie?api_key=10693a5e1e693837a6c36153f260d8d3' . $end . '&query=' . urlencode($infos->title->value), false, $cxContext));
+	if (count($searchApi->results) == 0 and !empty($end)) {
+		$end = '';
+		$searchApi = json_decode(file_get_contents('https://api.themoviedb.org/3/search/movie?api_key=10693a5e1e693837a6c36153f260d8d3' . $end . '&query=' . urlencode($infos->title->value), false, $cxContext));
+	}
+	
+	if (count($searchApi->results) > 0) {
+		$res = $searchApi->results[0];
+		if (isset($infos->language)) {
+			$langue = implode(',', $infos->language->value);
+		} else {
+			$langue = 'VO';
+		}
+		if (isset($infos->screenSize)) {
+			$qualite = $infos->screenSize->value;
+		} elseif (isset($infos->format)) {
+			$qualite = $infos->format->value;
+		} else {
+			$qualite = '';
+		}
+		$sub = (isset($infos->type) and $infos->type->value == 'moviesubtitle');
+		$reqAddFilmF->bindValue(':file', $f['id']);
+		$reqAddFilmF->bindValue(':tmdbid', $res->id);
+		$reqAddFilmF->bindValue(':langue', $langue);
+		$reqAddFilmF->bindValue(':qualite', $qualite);
+		$reqAddFilmF->bindValue(':sub', $sub);
+		$reqAddFilmF->execute();
+		$reqAddFilmF->closeCursor();
+		echo 'e';
+	} else {
+		echo 'n';
+	}
+}

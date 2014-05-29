@@ -23,9 +23,26 @@ angular.module('fruitsFilters', []).filter('humanSize', function() {
 	    return "0" + n;
     }
   };
+}).filter('ilog', function() {
+  return function(score) {
+    var n = Math.max(Math.round(Math.log(score)*1.66*2), 0);
+    return n;
+  };
+}).filter('duree', function() {
+  return function(n) {
+    if (n < 60) {
+	    return n + " min";
+    }
+    if ((n%60) < 10) {
+	    var nm = "0" + (n%60);
+    } else {
+	    var nm = n%60;
+    }
+    return Math.floor(n/60) + "h" + nm;
+  };
 }).filter('stars', function() {
   return function(score) {
-    var n = Math.max(Math.round(Math.log(score)*1.66), 0);
+    var n = Math.round(score/2);
     var out = "<span class='flashy'>";
     for (var i = 1; i <= n; i++) {
 	    out += "&#9734; ";

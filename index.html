@@ -34,15 +34,15 @@
   </div>
   <div id="menu">
     <div id="categories">
-        <a class="cat" ng-class="page == 'films' && 'actif'">
+        <a class="cat" href="#/films" class="cat" ng-class="page == 'films' && 'actif'">
             Films
         </a>
-        <a title="Séries" href="#/series" class="cat" ng-class="page == 'series' && 'actif'" ng-click="focus = false">
+        <a title="Séries" href="#/series" class="cat" ng-class="page == 'series' && 'actif'">
             Séries
         </a>
     </div>
     <div id="options" class="hide-for-small-only">
-    	<input type="text" name="rechercher" ng-model="rechercher" placeholder="Rechercher..." />
+    	<input type="text" id="rechercher" name="rechercher" ng-model="rechercher" placeholder="Rechercher..." />
     </div>
   </div>
   <div class="barred"></div>
