@@ -130,12 +130,16 @@ $app->get('/serveurs', function() use ($app) {
 });
 
 $app->get('/files/{dir}', function($dir) use ($app) {
+	$infos = $app['db']->fetchAssoc("SELECT id, nom, chemin_complet, taille, serveur, type, nb_clics, date_depose, (type='dossier') AS is_dossier
+    FROM fichiers
+    WHERE id = ?", array($dir));
     $fichiers = $app['db']->fetchAll("SELECT id, nom, chemin_complet, taille, serveur, type, nb_clics, date_depose, (type='dossier') AS is_dossier
     FROM fichiers
     WHERE parent=? AND supprime=0
     ORDER BY (type='dossier') DESC, nom ASC", array($dir));
+    $infos['fichiers'] = $fichiers;
     
-    return $app->json($fichiers);
+    return $app->json($infos);
 });
 
 $app->run();

@@ -63,3 +63,11 @@ fruitsControllers.controller('FilmCtrl', ['$scope', '$rootScope', 'Film', '$rout
     $rootScope.page = 'films';
     $scope.film = Film.get({id: $routeParams.id});
   }]);
+  
+fruitsControllers.controller('ServeursCtrl', ['$scope', '$rootScope', 'Serveur',
+  function($scope, $rootScope, Serveur) {
+    $rootScope.page = 'serveurs';
+    $rootScope.rechercher = '';
+    
+    $scope.serveurs = Serveur.query();
+  }]);

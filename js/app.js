@@ -39,6 +39,10 @@ fruitsApp.config(['$routeProvider',
         templateUrl: 'partials/film.html',
         controller: 'FilmCtrl'
       }).
+      when('/serveurs', {
+        templateUrl: 'partials/serveurs.html',
+        controller: 'ServeursCtrl'
+      }).
       otherwise({
         redirectTo: '/films'
       });

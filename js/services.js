@@ -6,17 +6,17 @@ var fruitsServices = angular.module('fruitsServices', ['ngResource']);
 
 fruitsServices.factory('Serie', ['$resource',
   function($resource){
-    return $resource('/fruits/api/series/:id', {}, {
-      query: {method:'GET', isArray:true}
-    });
+    return $resource('/fruits/api/series/:id');
   }]);
 fruitsServices.factory('Film', ['$resource',
   function($resource){
-    return $resource('/fruits/api/films/:id', {}, {
-      query: {method:'GET', isArray:true}
-    });
+    return $resource('/fruits/api/films/:id');
   }]);
 fruitsServices.factory('Saison', ['$resource',
   function($resource){
     return $resource('/fruits/api/series/saison/:id');
+  }]);
+fruitsServices.factory('Serveur', ['$resource',
+  function($resource){
+    return $resource('/fruits/api/serveurs/:id');
   }]);
