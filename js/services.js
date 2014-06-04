@@ -20,3 +20,7 @@ fruitsServices.factory('Serveur', ['$resource',
   function($resource){
     return $resource('/fruits/api/serveurs/:id');
   }]);
+fruitsServices.factory('Dossier', ['$resource',
+  function($resource){
+    return $resource('/fruits/api/files/:id');
+  }]);

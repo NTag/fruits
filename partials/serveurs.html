@@ -3,7 +3,7 @@
 		<table>
 			<tbody>
 				<tr ng-repeat="serveur in serveurs" ng-class-odd="'calt'">
-					<td><a title="Accéder aux fichiers de {{ serveur.serveur }}" href="#/files/{{ serveur.id }}">{{ serveur.serveur }}</a></td>
+					<td><a title="Accéder aux fichiers de {{ serveur.serveur }}" href="#/dossier/{{ serveur.id }}">{{ serveur.serveur }}</a></td>
 					<td class="text-center">{{ serveur.taille | humanSize }}</td>
 				</tr>
 			</tbody>

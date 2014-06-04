@@ -71,3 +71,10 @@ fruitsControllers.controller('ServeursCtrl', ['$scope', '$rootScope', 'Serveur',
     
     $scope.serveurs = Serveur.query();
   }]);
+fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routeParams', 'Dossier',
+  function($scope, $rootScope, $routeParams, Dossier) {
+    $rootScope.page = 'serveurs';
+    $rootScope.rechercher = '';
+    
+    $scope.dossier = Dossier.get({id: $routeParams.id});
+  }]);
