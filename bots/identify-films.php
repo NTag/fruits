@@ -27,7 +27,7 @@ foreach ($files as $f) {
 	}
 	$i++;
 
-	$guessit = shell_exec('guessit -a ' . escapeshellarg($f['nom']));
+	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
 	$guessit = str_replace('Volap\u00fck', 'VO', $guessit);
 	$infos = json_decode(substr($guessit, strpos($guessit, '{')));
 	
@@ -38,6 +38,7 @@ foreach ($files as $f) {
 		$end = '';
 	}
 	if (!isset($infos->title)) {
+		echo $f['chemin_complet'] . "\n";
 		echo 'X';
 		continue;
 	}
@@ -72,6 +73,7 @@ foreach ($files as $f) {
 		$reqAddFilmF->closeCursor();
 		echo 'e';
 	} else {
+		echo $infos->title->value . "\n";
 		echo 'n';
 	}
 }

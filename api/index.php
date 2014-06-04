@@ -108,4 +108,14 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
     return $app->json(array_values($episodest));
 });
 
+$app->get('/search/{q}', function($q) use ($app) {
+    $fichiers = $app['db']->fetchAll("SELECT id, nom, chemin_complet, taille, serveur, type,
+    (MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE))*(nb_clics+1)*0.5 AS score
+    FROM fichiers
+    WHERE MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE)
+    ORDER BY (MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE))*(nb_clics+1)*0.5 DESC", array($q, $q, $q));
+    
+    return $app->json($fichiers);
+});
+
 $app->run();
