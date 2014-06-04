@@ -118,4 +118,24 @@ $app->get('/search/{q}', function($q) use ($app) {
     return $app->json($fichiers);
 });
 
+$app->get('/serveurs', function() use ($app) {
+    $fichiers = $app['db']->fetchAll("SELECT fichiers.id, serveurs.taille, serveur, nb_clics
+    FROM serveurs
+    LEFT JOIN fichiers
+    ON fichiers.serveur=serveurs.nom
+    WHERE fichiers.nom='/' AND fichiers.parent IS NULL AND serveurs.supprime=0 AND fichiers.supprime=0 AND online=1
+    ORDER BY taille DESC");
+    
+    return $app->json($fichiers);
+});
+
+$app->get('/files/{dir}', function($dir) use ($app) {
+    $fichiers = $app['db']->fetchAll("SELECT id, nom, chemin_complet, taille, serveur, type, nb_clics, date_depose, (type='dossier') AS is_dossier
+    FROM fichiers
+    WHERE parent=? AND supprime=0
+    ORDER BY (type='dossier') DESC, nom ASC", array($dir));
+    
+    return $app->json($fichiers);
+});
+
 $app->run();
