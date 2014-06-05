@@ -55,3 +55,9 @@ fruitsApp.config(['$routeProvider',
         redirectTo: '/films'
       });
   }]);
+
+fruitsApp.run(function($rootScope, $location) {
+    $rootScope.search = function() {
+        $location.path('/search/' + $rootScope.rechercher);
+    }
+});
