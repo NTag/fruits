@@ -14,3 +14,10 @@
 <p><br /><br /><br /></p>
 <img src="images/load_big.gif" alt="Chargement" />
 </div>
+
+<div ng-hide="films.length == 0">
+	<div class="text-center" ng-show="(film in films | filter:rechercher).length == 0">
+	<p><br /></p>
+	Appuyez sur Entrée pour rechercher dans tous les fichiers ;-)
+	</div>
+</div>
