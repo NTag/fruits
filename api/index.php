@@ -110,14 +110,14 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
 });
 
 $app->get('/search/{q}', function($q) use ($app) {
-    $fichiers = $app['db']->fetchAll("SELECT id, nom, chemin_complet, taille, serveur, type,
+    $fichiers = $app['db']->fetchAll("SELECT id, nom, chemin_complet, taille, serveur, type, parent, (type = 'dossier') AS is_dossier,
     (MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE))*(nb_clics+1)*0.5 AS score
     FROM fichiers
     WHERE MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE)
     ORDER BY (MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE))*(nb_clics+1)*0.5 DESC
     LIMIT 0, 50", array($q, $q, $q));
     
-    return $app->json($fichiers);
+    return $app->json(array('fichiers' => $fichiers));
 });
 
 $app->get('/serveurs', function() use ($app) {

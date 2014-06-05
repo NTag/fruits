@@ -47,6 +47,10 @@ fruitsApp.config(['$routeProvider',
         templateUrl: 'partials/fichiers.html',
         controller: 'DossierCtrl'
       }).
+      when('/search/:q*', {
+        templateUrl: 'partials/search.html',
+        controller: 'SearchCtrl'
+      }).
       otherwise({
         redirectTo: '/films'
       });
