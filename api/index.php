@@ -113,7 +113,8 @@ $app->get('/search/{q}', function($q) use ($app) {
     (MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE))*(nb_clics+1)*0.5 AS score
     FROM fichiers
     WHERE MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE)
-    ORDER BY (MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE))*(nb_clics+1)*0.5 DESC", array($q, $q, $q));
+    ORDER BY (MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE))*(nb_clics+1)*0.5 DESC
+    LIMIT 0, 50", array($q, $q, $q));
     
     return $app->json($fichiers);
 });
@@ -130,7 +131,7 @@ $app->get('/serveurs', function() use ($app) {
 });
 
 $app->get('/files/{dir}', function($dir) use ($app) {
-	$infos = $app['db']->fetchAssoc("SELECT id, nom, chemin_complet, taille, serveur, type, nb_clics, date_depose, (type='dossier') AS is_dossier
+	$infos = $app['db']->fetchAssoc("SELECT id, nom, chemin_complet, taille, serveur, type, nb_clics, date_depose, (type='dossier') AS is_dossier, parent
     FROM fichiers
     WHERE id = ?", array($dir));
     $fichiers = $app['db']->fetchAll("SELECT id, nom, chemin_complet, taille, serveur, type, nb_clics, date_depose, (type='dossier') AS is_dossier
