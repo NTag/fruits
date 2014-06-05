@@ -2,7 +2,7 @@
 	<div class="small-12 medium-10 medium-centered large-8 columns">
 		<table>
 			<tbody>
-				<tr ng-repeat="fichier in search.fichiers | filter:rechercher" ng-class-odd="'calt'">
+				<tr ng-repeat="fichier in search.fichiers | filter:rechercher | limitTo: 50" ng-class-odd="'calt'">
 					<td><a title="Accéder à ce dossier" href="#/dossier/{{ fichier.id }}" ng-show="fichier.is_dossier"><span class="fi-folder"></span> {{ fichier.nom }}</a><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-hide="fichier.is_dossier">{{ fichier.nom }}</a> <a title="Accéder au dossier parent" href="#/dossier/{{ fichier.parent }}" ng-hide="fichier.is_dossier || fichier.parent == 0"><span class="fi-folder"></span></a></td>
 					<td>{{ fichier.serveur }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
