@@ -8,14 +8,14 @@ $app['debug'] = true;
 require('config.php');
 
 $app->get('/films', function() use ($app) {
-    $films = $app['db']->fetchAll("SELECT tmdbid, title, titlefr, titleen, YEAR(release_date) AS date, production, popularity
+    $films = $app['db']->fetchAll("SELECT tmdbid, title, titlefr, titleen, YEAR(release_date) AS date, production, popularity, release_date
     FROM films
     ORDER BY popularity DESC");
     return $app->json($films);
 });
 
 $app->get('/series', function() use ($app) {
-    $series = $app['db']->fetchAll("SELECT id, nom, tmdbid, tfirstdate, tlastdate, tnbseasons, (SELECT COUNT(*) FROM series_saisons AS sa WHERE sa.serie = series.id) AS nbseasons, tpopularity AS popularity, nom AS title
+    $series = $app['db']->fetchAll("SELECT id, nom, tmdbid, tfirstdate, tlastdate, tnbseasons, (SELECT COUNT(*) FROM series_saisons AS sa WHERE sa.serie = series.id) AS nbseasons, tpopularity AS popularity, nom AS title, tfirstdate AS release_date
     FROM series
     ORDER BY tpopularity DESC");
     return $app->json($series);
