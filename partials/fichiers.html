@@ -1,6 +1,7 @@
 <div class="row">
 	<div class="small-12 medium-10 medium-centered large-8 columns">
-		<h4><a title="Retourner au dossier parent" href="#/{{ dossier.parent > 0 && 'dossier/' + dossier.parent || 'serveurs' }}">{{ dossier.serveur }}{{ dossier.chemin_complet }}</a></h4>
+		<h4>{{ dossier.serveur }}{{ dossier.chemin_complet }}</h4>
+		<a ng-show="dossier.parent > 0" title="Retourner au dossier parent" href="#/dossier/{{ dossier.parent }}"><span class="fi-chevron-left"></span> Dossier parent</a><a ng-hide="dossier.parent > 0" title="Retour à la liste des serveurs" href="#/serveurs"><span class="fi-chevron-left"></span> Liste des serveurs</a><br /><br />
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in dossier.fichiers | filter:rechercher" ng-class-odd="'calt'">
