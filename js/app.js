@@ -63,4 +63,10 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
     $rootScope.clickf = function(file) {
         var cf = Dossier.click({id: file});
     };
+    $rootScope.rsens = function() {
+        if ($rootScope.rtri == 'popularity') {
+            return true;
+        }
+        return false;
+    };
 });

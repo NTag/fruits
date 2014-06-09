@@ -42,9 +42,15 @@
         <a title="Séries" href="#/series" class="cat" ng-class="page == 'series' && 'actif'">
             Séries
         </a>
-	<a title="Serveurs" href="#/serveurs" class="cat" ng-class="page == 'serveurs' && 'actif'">
+        <a title="Serveurs" href="#/serveurs" class="cat" ng-class="page == 'serveurs' && 'actif'">
             Serveurs
         </a>
+        <div class="cat" ng-hide="page == 'serveurs'">
+            Tri<select ng-model="rtri" ng-init="rtri = 'popularity'">
+                    <option value="popularity">Popularité</option>
+                    <option value="title">Nom</option>
+                </select>
+        </div>
     </div>
     <div id="options" class="hide-for-small-only">
 	<form ng-submit="search()">
