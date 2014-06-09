@@ -26,7 +26,7 @@ $app->get('/films/{id}', function($id) use ($app) {
     FROM films
     WHERE tmdbid = ?", array($id));
     
-    $fichiers = $app['db']->fetchAll("SELECT fichier, chemin_complet, serveur, nom, taille, langue, qualite, sub, parent
+    $fichiers = $app['db']->fetchAll("SELECT fichier, chemin_complet, serveur, nom, taille, langue, qualite, sub, parent, nb_clics
     FROM filmsf
     LEFT JOIN fichiers
     ON fichiers.id = filmsf.fichier
@@ -63,7 +63,7 @@ $app->get('/series/{id}', function($id) use ($app) {
 });
 
 $app->get('/series/saison/{id}', function($id) use ($app) {
-    $episodes = $app['db']->fetchAll("SELECT fichier, saison, episode, tname, tdate, chemin_complet, serveur, nom, taille, fichiers.parent
+    $episodes = $app['db']->fetchAll("SELECT fichier, saison, episode, tname, tdate, chemin_complet, nb_clics, serveur, nom, taille, fichiers.parent
     FROM series_episodes
     LEFT JOIN fichiers
     ON fichiers.id = series_episodes.fichier
@@ -102,6 +102,7 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
 		    'fichier' => $e['fichier'],
 		    'chemin_complet' => $e['chemin_complet'],
 		    'serveur' => $e['serveur'],
+		    'nb_clics' => $e['nb_clics'],
 		    'parent' => $e['parent'],
 		    );
     }
@@ -149,7 +150,7 @@ $app->get('/files/{dir}', function($dir) use ($app) {
 $app->get('/files/{file}/click', function($file) use ($app) {
     $app['db']->executeUpdate("UPDATE fichiers SET nb_clics = nb_clics+1 WHERE id=?", array($file));
     
-    return $app->json(array('ok'));
+    return $app->json(array('status' => 'ok'));
 });
 
 $app->run();

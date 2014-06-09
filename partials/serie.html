@@ -21,7 +21,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="small-12 medium-9 large-5 columns">
+	<div class="small-12 medium-9 large-4 columns">
 		<div ng-show="fep">
 		<h3>Épisodes</h3>
 		<table>
@@ -35,13 +35,14 @@
 		</table>
 		</div>
 	</div>
-	<div class="small-12 medium-12 large-5 columns">
+	<div class="small-12 medium-12 large-6 columns">
 	<div ng-show="fepf">
 		<h3>Fichiers</h3>
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in epf" ng-class-odd="'calt'">
 					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}" ng-click="clickf(fichier.parent)"><span class="fi-folder"></span></a></td>
+					<td class="text-center">{{ fichier.nb_clics }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
 				</tr>
@@ -53,6 +54,7 @@
 			<tbody>
 				<tr ng-repeat="fichier in eps" ng-class-odd="'calt'">
 					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}" ng-click="clickf(fichier.parent)"><span class="fi-folder"></span></a></td>
+					<td class="text-center">{{ fichier.nb_clics }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
 				</tr>
@@ -62,14 +64,3 @@
 	</div>
 	</div>
 </div>
-
-<!--
-<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-6 text-center">
-    <li ng-repeat="saison in serie.saisons">
-    	<a title="Saison {{ saison.numero }}" ng-click="affep(saison.id, saison.numero)">
-	        <img ng-src="/fruits/api/data/series/poster/{{ serie.tmdbid }}_s{{ saison.numero }}.jpg" alt="Saison {{ saison.numero }}" ng-click="affep(saison.id)" /><br />
-	        <div class="numsaison">Saison {{ saison.numero }}</div>
-    	</a>
-    </li>
-</ul>
--->

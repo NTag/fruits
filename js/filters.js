@@ -28,6 +28,14 @@ angular.module('fruitsFilters', []).filter('humanSize', function() {
     var n = Math.max(Math.round(Math.log(score)*1.66*2), 0);
     return n;
   };
+}).filter('affs', function() {
+  return function(nb) {
+    if (nb > 1) {
+        return "s";
+    } else {
+        return "";
+    }
+  };
 }).filter('duree', function() {
   return function(n) {
     if (n < 60) {
