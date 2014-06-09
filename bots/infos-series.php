@@ -14,23 +14,33 @@ $reqAllSeries->closeCursor();
 
 foreach ($series as $s) {
 	echo $s['nom'];
-	$infos = json_decode(file_get_contents('https://api.themoviedb.org/3/tv/' . $s['tmdbid'] . '?api_key=' . $tmdbKey . '&language=en', false, $cxContext));
+	$infos = array();
 	
-	$reqUpdateSerie->bindValue(':tnbseasons', $infos->number_of_seasons);
-	$reqUpdateSerie->bindValue(':tpopularity', $infos->popularity);
-	$reqUpdateSerie->bindValue(':tfirstdate', $infos->first_air_date);
-	$reqUpdateSerie->bindValue(':tlastdate', $infos->last_air_date);
-	$reqUpdateSerie->bindValue(':tepisode_run_time', $infos->episode_run_time[0]);
+	$infosa = json_decode(file_get_contents('https://api.themoviedb.org/3/tv/' . $s['tmdbid'] . '?api_key=' . $tmdbKey . '&language=en', false, $cxContext));
+    $infos['tnbseasons'] = $infosa->number_of_seasons;
+	$infos['tfirstdate'] = $infosa->first_air_date;
+	$infos['tlastdate'] = $infosa->last_air_date;
+	$infos['tepisode_run_time'] = $infosa->episode_run_time[0];
+	$infos['tin_production'] = $infosa->in_production;
+	$infos['tnetwork'] = $infosa->networks[0]->name;
+	$infos['torigin_country'] = $infosa->origin_country[0];
+	$infos['id'] = $s['id'];
+	$infos['toverview'] = $infosa->overview;
+	
+	$infosa = json_decode(file_get_contents('https://api.themoviedb.org/3/tv/' . $s['tmdbid'] . '?api_key=' . $tmdbKey . '&language=fr', false, $cxContext));
+	$infos['tpopularity'] = $infosa->popularity;
+	if (!empty($infosa->overview)) {
+    	$infos['toverview'] = $infosa->overview;
+	}
 	$genres = '';
-	foreach ($infos->genres as $g) {
+	foreach ($infosa->genres as $g) {
 		$genres .= $g->name . ', ';
 	}
-	$reqUpdateSerie->bindValue(':tgenres', $genres);
-	$reqUpdateSerie->bindValue(':tin_production', $infos->in_production);
-	$reqUpdateSerie->bindValue(':tnetwork', $infos->networks[0]->name);
-	$reqUpdateSerie->bindValue(':torigin_country', $infos->origin_country[0]);
-	$reqUpdateSerie->bindValue(':toverview', $infos->overview);
-	$reqUpdateSerie->bindValue(':id', $s['id']);
+	$infos['tgenres'] = $genres;
+	
+	foreach ($infos as $k => $v) {
+    	$reqUpdateSerie->bindValue(':' . $k, $v);
+	}
 	$reqUpdateSerie->execute();
 	$reqUpdateSerie->closeCursor();
 	
