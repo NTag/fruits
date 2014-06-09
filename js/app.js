@@ -56,8 +56,11 @@ fruitsApp.config(['$routeProvider',
       });
   }]);
 
-fruitsApp.run(function($rootScope, $location) {
+fruitsApp.run(function($rootScope, $location, Dossier) {
     $rootScope.search = function() {
         $location.path('/search/' + $rootScope.rechercher);
     }
+    $rootScope.clickf = function(file) {
+        var cf = Dossier.click({id: file});
+    };
 });

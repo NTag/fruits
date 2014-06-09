@@ -146,4 +146,10 @@ $app->get('/files/{dir}', function($dir) use ($app) {
     return $app->json($infos);
 });
 
+$app->get('/files/{file}/click', function($file) use ($app) {
+    $app['db']->executeUpdate("UPDATE fichiers SET nb_clics = nb_clics+1 WHERE id=?", array($file));
+    
+    return $app->json(array('ok'));
+});
+
 $app->run();
