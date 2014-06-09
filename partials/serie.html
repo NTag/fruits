@@ -41,7 +41,7 @@
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in epf" ng-class-odd="'calt'">
-					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}"><span class="fi-folder"></span></a></td>
+					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}" ng-click="clickf(fichier.parent)"><span class="fi-folder"></span></a></td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
 				</tr>
@@ -52,7 +52,7 @@
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in eps" ng-class-odd="'calt'">
-					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}"><span class="fi-folder"></span></a></td>
+					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}" ng-click="clickf(fichier.parent)"><span class="fi-folder"></span></a></td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
 				</tr>

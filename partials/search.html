@@ -3,12 +3,13 @@
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in search.fichiers | filter:rechercher | limitTo: 50" ng-class-odd="'calt'">
-					<td><a title="Accéder à ce dossier" href="#/dossier/{{ fichier.id }}" ng-show="fichier.is_dossier"><span class="fi-folder"></span> {{ fichier.nom }}</a><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-hide="fichier.is_dossier">{{ fichier.nom }}</a> <a title="Accéder au dossier parent" href="#/dossier/{{ fichier.parent }}" ng-hide="fichier.is_dossier || fichier.parent == 0"><span class="fi-folder"></span></a></td>
+					<td><a title="Accéder à ce dossier" href="#/dossier/{{ fichier.id }}" ng-show="fichier.is_dossier" ng-click="clickf(fichier.id)"><span class="fi-folder"></span> {{ fichier.nom }}</a><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-hide="fichier.is_dossier" ng-click="clickf(fichier.id)">{{ fichier.nom }}</a> <a title="Accéder au dossier parent" href="#/dossier/{{ fichier.parent }}" ng-hide="fichier.is_dossier || fichier.parent == 0"><span class="fi-folder"></span></a></td>
+					<td>{{ fichier.nb_clics }}</td>
 					<td>{{ fichier.serveur }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 				</tr>
 				<tr ng-show="dossier.fichiers.length == 0">
-					<td colspan="2" class="text-center">Aucun fichier</td>
+					<td colspan="4" class="text-center">Aucun fichier</td>
 				</tr>
 			</tbody>
 		</table>
