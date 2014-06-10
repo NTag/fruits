@@ -8,7 +8,7 @@ $app['debug'] = true;
 require('config.php');
 
 $app->get('/films', function() use ($app) {
-    $films = $app['db']->fetchAll("SELECT tmdbid, title, titlefr, titleen, YEAR(release_date) AS date, production, popularity, release_date
+    $films = $app['db']->fetchAll("SELECT tmdbid, title, titlefr, titleen, titlefrslug, YEAR(release_date) AS date, production, popularity, release_date
     FROM films
     ORDER BY popularity DESC");
     return $app->json($films);

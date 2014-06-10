@@ -3,9 +3,9 @@ require('bdd.php');
 $bdd = new PDO(SMSDSN, SMSUSERNAME, SMSPASSWORD);
 
 $reqAddFilm = $bdd->prepare("INSERT INTO films
-VALUES(:tmdbid, :title, :titlefr, :titleen, :overview, :genres, :budget, :popularity, :vote, :production, :release_date, :runtime)");
+VALUES(:tmdbid, :title, :titlefr, :titleen, :titlefrslug, :overview, :genres, :budget, :popularity, :vote, :production, :release_date, :runtime)");
 
-$fields = array('tmdbid', 'title', 'titlefr', 'titleen', 'overview', 'genres', 'budget', 'popularity', 'vote', 'production', 'release_date', 'runtime');
+$fields = array('tmdbid', 'title', 'titlefr', 'titleen', 'overview', 'genres', 'budget', 'popularity', 'vote', 'production', 'release_date', 'runtime', 'titlefrslug');
 
 $reqAllId = $bdd->prepare("SELECT DISTINCT tmdbid
 	FROM filmsf
@@ -63,6 +63,7 @@ foreach ($films as $s) {
 			$in['genres'] .= $g->name . ', ';
 		}
 	}
+	$in['titlefrslug'] = slug($in['titlefr']);
 	
 	copy('https://image.tmdb.org/t/p/original/' . $poster, '../api/data/films/poster/' . $s['tmdbid'] . '.jpg', $cxContext);
     copy('https://image.tmdb.org/t/p/w300/' . $poster, '../api/data/films/poster/' . $s['tmdbid'] . '_w300.jpg', $cxContext);
