@@ -49,6 +49,10 @@ foreach ($files as $f) {
 	}
 	$i++;
 	
+	if (in_array(strtolower($s['nom']), $useless)) {
+    	continue;
+	}
+	
 	// On enlève le numéro de la série qui peut être au début du fichier
 	if (preg_match('#^[0-9]{1,3}\-#', $f['nom']) and preg_replace('#^([0-9]{1,3})\-.+$#isU', '$1', $f['nom']) != '24') {
     	$f['chemin_complet'] = str_replace($f['nom'], preg_replace('#^([0-9]{1,3})\-(.+)$#isU', '$2', $f['nom']), $f['chemin_complet']);
