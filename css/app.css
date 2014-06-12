@@ -123,6 +123,11 @@ tr {
 .flashy {
 	color: #2ba6cb;
 }
+.leger {
+    font-weight: 100;
+    color: #AAAAAA;
+    font-size: 0.7em;
+}
 select {
     -moz-appearance: window;
     background-image: none;
@@ -155,4 +160,4 @@ select:not(:checked) {
 .select{
      background-image: none;
   }
-} 
+}
