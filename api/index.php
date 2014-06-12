@@ -31,7 +31,7 @@ $app->get('/films/{id}', function($id) use ($app) {
     LEFT JOIN fichiers
     ON fichiers.id = filmsf.fichier
     WHERE filmsf.tmdbid = ?
-    ORDER BY sub ASC", array($id));
+    ORDER BY sub ASC, nb_clics DESC", array($id));
     
     $film['fichiers'] = array();
     foreach ($fichiers as $k => $f) {

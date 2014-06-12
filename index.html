@@ -47,11 +47,13 @@
             Serveurs
         </a>
         <div class="cat" ng-hide="page == 'serveurs'">
-            Tri :<select ng-model="rtri" ng-init="rtri = 'popularity'">
+            Tri :<span class="select">
+                  <select ng-model="rtri" ng-init="rtri = 'popularity'">
                     <option value="popularity">Popularité</option>
                     <option value="title">Nom</option>
                     <option value="release_date">Date de sortie</option>
-                </select>
+                  </select>
+                </span>
         </div>
     </div>
     <div id="options" class="hide-for-small-only">

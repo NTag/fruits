@@ -124,6 +124,7 @@ tr {
 	color: #2ba6cb;
 }
 select {
+    -moz-appearance: window;
     background-image: none;
     background-color: rgba(23, 24, 27, 0.8);
     width: auto;
@@ -144,8 +145,14 @@ select:hover {
     cursor: pointer;
 }
 select option {
-   color: black;
+   color: white;
+   border: none;
 }
 select:not(:checked) {
    color: #2ba6cb;
 }
+@-moz-document url-prefix() {
+.select{
+     background-image: none;
+  }
+} 
