@@ -6,6 +6,7 @@ var fruitsApp = angular.module('fruitsApp', [
   'ngRoute',
   'ngSanitize',
   'angularMoment',
+  'infinite-scroll',
   //'fruitsAnimations',
 
   'fruitsControllers',

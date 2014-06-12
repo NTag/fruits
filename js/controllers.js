@@ -56,6 +56,10 @@ fruitsControllers.controller('FilmsListCtrl', ['$scope', '$rootScope', 'Film',
     document.getElementById('rechercher').focus();
     $scope.fep = false;
     $scope.films = Film.query();
+    $scope.loadNb = 120;
+    $scope.loadMore = function() {
+        $scope.loadNb += 120;
+    };
   }]);
 fruitsControllers.controller('FilmCtrl', ['$scope', '$rootScope', 'Film', '$routeParams',
   function($scope, $rootScope, Film, $routeParams) {
