@@ -85,6 +85,8 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
 fruitsControllers.controller('SearchCtrl', ['$scope', '$rootScope', '$routeParams', 'Search',
   function($scope, $rootScope, $routeParams, Search) {
     $rootScope.page = 'serveurs';
-
-    $scope.search = Search.get({q: $routeParams.q});
+	$scope.searchEnCours = true;
+    $scope.search = Search.get({q: $routeParams.q}, function() {
+	    $scope.searchEnCours = false;
+    });
   }]);

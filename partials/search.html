@@ -16,8 +16,11 @@
 					<td>{{ fichier.serveur }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 				</tr>
-				<tr ng-show="dossier.fichiers.length == 0">
+				<tr ng-show="search.fichiers.length == 0">
 					<td colspan="4" class="text-center">Aucun fichier</td>
+				</tr>
+				<tr ng-show="searchEnCours">
+					<td colspan="4" class="text-center"><img src="images/load_big.gif" alt="Chargement" /></td>
 				</tr>
 			</tbody>
 		</table>

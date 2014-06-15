@@ -1,7 +1,7 @@
 <div id="list" infinite-scroll="loadMore()" infinite-scroll-distance="2">
 	<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-8">
 	    <li ng-repeat="film in films | filter:rechercher | orderBy:rtri:rsens() | limitTo:loadNb">
-	    	<a title="Voir cette film" href="#/films/{{ film.tmdbid }}">
+	    	<a title="Voir ce film" href="#/films/{{ film.tmdbid }}">
 		        <img ng-src="/fruits/api/data/films/poster/{{ film.tmdbid }}_w300.jpg" alt="{{ film.titlefr }}" /><br />
 		        {{ film.titlefr }}
 	    	</a>
