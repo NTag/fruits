@@ -73,4 +73,7 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
         }
         return false;
     };
+    $rootScope.random = function() {
+	    return Math.random();
+    }
 });
