@@ -1,4 +1,8 @@
 <?php
+// PLUS UTILISÉ
+
+
+
 require('bdd.php');
 $bdd = new PDO(SMSDSN, SMSUSERNAME, SMSPASSWORD);
 

@@ -2,6 +2,10 @@
 require('bdd.php');
 $bdd = new PDO(SMSDSN, SMSUSERNAME, SMSPASSWORD);
 
+echo "# Fruits v5
+## Identification des series (tvnamer)
+## " . date('Y-m-d H:i:s') . "\n";
+
 // SQL
 $reqAddSerie = $bdd->prepare("INSERT INTO series
 	VALUES('', :nom, :tmdbid,:tnbseasons, :tpopularity, :tfirstdate, :tlastdate, :tepisode_run_time, :tgenres, :tin_production,:tnetwork,:torigin_country,:toverview)");
@@ -94,7 +98,7 @@ foreach ($files as $f) {
 				continue;
 			}
 		} else {
-			echo "\n" . $nom . ' -- ' . $f['chemin_complet'] . ' -- ';
+			//echo "\n" . $nom . ' -- ' . $f['chemin_complet'] . ' -- ';
 			echo 'N';
 			$not[$nom] = true;
 			continue;

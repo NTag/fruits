@@ -2,6 +2,10 @@
 require('bdd.php');
 $bdd = new PDO(SMSDSN, SMSUSERNAME, SMSPASSWORD);
 
+echo "# Fruits v5
+## Informations des series
+## " . date('Y-m-d H:i:s') . "\n";
+
 $reqUpdateSerie = $bdd->prepare("UPDATE series
 	SET tnbseasons=:tnbseasons, tpopularity=:tpopularity, tfirstdate=:tfirstdate, tlastdate=:tlastdate, tepisode_run_time=:tepisode_run_time, tgenres=:tgenres, tin_production=:tin_production,tnetwork=:tnetwork,torigin_country=:torigin_country,toverview=:toverview
 	WHERE id=:id");

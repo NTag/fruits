@@ -2,6 +2,10 @@
 require('bdd.php');
 $bdd = new PDO(SMSDSN, SMSUSERNAME, SMSPASSWORD);
 
+echo "# Fruits v5
+## Telechargement des infos des films
+## " . date('Y-m-d H:i:s') . "\n";
+
 $reqAddFilm = $bdd->prepare("INSERT INTO films
 VALUES(:tmdbid, :title, :titlefr, :titleen, :titlefrslug, :overview, :genres, :budget, :popularity, :vote, :production, :release_date, :runtime)");
 

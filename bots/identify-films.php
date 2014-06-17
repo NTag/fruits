@@ -28,7 +28,7 @@ foreach ($files as $f) {
 	$i++;
 
 	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
-	$guessit = str_replace('Volap\u00fck', 'VO', $guessit);
+	$guessit = str_replace('Volap\u00fck', 'VO/VF', $guessit);
 	$infos = json_decode(substr($guessit, strpos($guessit, '{')));
 	
 	// Recherche de l'id sur tmdb
@@ -54,7 +54,7 @@ foreach ($files as $f) {
 		if (isset($infos->language)) {
 			$langue = implode(',', $infos->language->value);
 		} else {
-			$langue = 'VO';
+			$langue = '';
 		}
 		if (isset($infos->screenSize)) {
 			$qualite = $infos->screenSize->value;
