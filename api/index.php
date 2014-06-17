@@ -161,4 +161,17 @@ $app->get('/files/{file}/error', function($file) use ($app) {
     return $app->json(array('status' => 'ok'));
 });
 
+$app->get('/new', function() use ($app) {
+    $fichiers = $app['db']->fetchAll("SELECT * FROM (SELECT fichiers.id, fichiers.nom, chemin_complet, fichiers.nb_clics, fichiers.taille, fichiers.serveur, type, parent, (type = 'dossier') AS is_dossier
+    FROM fichiers
+    WHERE supprime = 0
+    ORDER BY id DESC
+    LIMIT 0, 80) AS files
+    LEFT JOIN serveurs
+    ON serveurs.nom=files.serveur
+    WHERE serveurs.online=1 AND serveurs.supprime=0");
+    
+    return $app->json(array('fichiers' => $fichiers));
+});
+
 $app->run();
