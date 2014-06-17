@@ -120,6 +120,8 @@ $app->get('/search/{q}', function($q) use ($app) {
     ORDER BY ((MATCH (fichiers.chemin_complet) AGAINST (? IN BOOLEAN MODE)) + (MATCH (fichiers.nom) AGAINST (? IN BOOLEAN MODE))*3)*(nb_clics+1) DESC
     LIMIT 0, 200", array($q, $q, $q, $q, $q));
     
+    $app['db']->executeUpdate("INSERT INTO recherches VALUES('',?,?,NOW(),'')", array($q, $_SERVER['REMOTE_ADDR']));
+    
     return $app->json(array('fichiers' => $fichiers));
 });
 
