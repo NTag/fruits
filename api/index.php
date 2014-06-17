@@ -30,7 +30,7 @@ $app->get('/films/{id}', function($id) use ($app) {
     FROM filmsf
     LEFT JOIN fichiers
     ON fichiers.id = filmsf.fichier
-    WHERE filmsf.tmdbid = ?
+    WHERE filmsf.tmdbid = ? AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 4
     ORDER BY sub ASC, nb_clics DESC", array($id));
     
     $film['fichiers'] = array();
@@ -67,7 +67,7 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
     FROM series_episodes
     LEFT JOIN fichiers
     ON fichiers.id = series_episodes.fichier
-    WHERE series_episodes.saison = ?
+    WHERE series_episodes.saison = ?  AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 4
     ORDER BY episode ASC", array($id));
     
     $extSubtitles = array(
@@ -149,6 +149,12 @@ $app->get('/files/{dir}', function($dir) use ($app) {
 
 $app->get('/files/{file}/click', function($file) use ($app) {
     $app['db']->executeUpdate("UPDATE fichiers SET nb_clics = nb_clics+1 WHERE id=?", array($file));
+    
+    return $app->json(array('status' => 'ok'));
+});
+
+$app->get('/files/{file}/error', function($file) use ($app) {
+    $app['db']->executeUpdate("INSERT INTO ierreurs VALUES(?,?,NOW())", array($file, $_SERVER['REMOTE_ADDR']));
     
     return $app->json(array('status' => 'ok'));
 });
