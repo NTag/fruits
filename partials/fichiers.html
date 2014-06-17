@@ -5,7 +5,7 @@
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in dossier.fichiers | filter:rechercher" ng-class-odd="'calt'">
-					<td><a title="Accéder à ce dossier" href="#/dossier/{{ fichier.id }}" ng-show="fichier.is_dossier"><span class="fi-folder"></span> {{ fichier.nom }}</a><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-hide="fichier.is_dossier" ng-click="clickf(fichier.id)">{{ fichier.nom }}</a></td>
+					<td><a title="Accéder à ce dossier" href="#/dossier/{{ fichier.id }}" ng-show="fichier.is_dossier"><span class="fi-folder"></span> {{ fichier.nom }}</a><a title="Télécharger ce fichier" href="ftp://{{ (fichier.serveur == 'thunder' && seuil()) && 'thunder2' || fichier.serveur }}{{ fichier.chemin_complet }}" ng-hide="fichier.is_dossier" ng-click="clickf(fichier.id)">{{ fichier.nom }}</a></td>
 					<td>{{ fichier.nb_clics }} clic{{ fichier.nb_clics | affs }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 				</tr>
