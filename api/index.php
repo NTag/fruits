@@ -30,7 +30,7 @@ $app->get('/films/{id}', function($id) use ($app) {
     FROM filmsf
     LEFT JOIN fichiers
     ON fichiers.id = filmsf.fichier
-    WHERE filmsf.tmdbid = ? AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 4
+    WHERE filmsf.tmdbid = ? AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
     ORDER BY sub ASC, nb_clics DESC", array($id));
     
     $film['fichiers'] = array();
@@ -67,7 +67,7 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
     FROM series_episodes
     LEFT JOIN fichiers
     ON fichiers.id = series_episodes.fichier
-    WHERE series_episodes.saison = ?  AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 4
+    WHERE series_episodes.saison = ?  AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
     ORDER BY episode ASC", array($id));
     
     $extSubtitles = array(

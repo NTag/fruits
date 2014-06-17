@@ -16,12 +16,13 @@
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in film.fichiers" ng-class-odd="'calt'">
-					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier); (fichier.nb_clics = 1*fichier.nb_clics + 1)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}" ng-click="clickf(fichier.parent)"><span class="fi-folder"></span></a></td>
+					<td><a title="Télécharger ce fichier" href="ftp://{{ fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier); (fichier.nb_clics = 1*fichier.nb_clics + 1)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}" ng-click="clickf(fichier.parent)"><span class="fi-folder"></span></td>
 					<td class="text-center">{{ fichier.langue }}</td>
 					<td class="text-center">{{ fichier.qualite }}</td>
 					<td class="text-center">{{ fichier.nb_clics }} clic{{ fichier.nb_clics | affs }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
+					<td><a title="Ce fichier a été mal identifié, il ne correspond pas à ce film" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -34,6 +35,7 @@
 					<td class="text-center">{{ fichier.langue }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
+					<td><a title="Ce fichier a été mal identifié, il ne correspond pas à ce film" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
 				</tr>
 			</tbody>
 		</table>

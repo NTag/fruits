@@ -45,6 +45,7 @@
 					<td class="text-center">{{ fichier.nb_clics }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
+					<td><a title="Ce fichier a été mal identifié, il ne correspond pas à ce film" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -57,6 +58,7 @@
 					<td class="text-center">{{ fichier.nb_clics }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
+					<td><a title="Ce fichier a été mal identifié, il ne correspond pas à ce film" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
 				</tr>
 			</tbody>
 		</table>

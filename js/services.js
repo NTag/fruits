@@ -23,7 +23,8 @@ fruitsServices.factory('Serveur', ['$resource',
 fruitsServices.factory('Dossier', ['$resource',
   function($resource){
     return $resource('/fruits/api/files/:id', {},
-    {click: {url:'/fruits/api/files/:id/click'}});
+    {click: {url:'/fruits/api/files/:id/click'},
+     error: {url:'/fruits/api/files/:id/error'}});
   }]);
 fruitsServices.factory('Search', ['$resource',
   function($resource){

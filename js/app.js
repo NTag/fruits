@@ -64,6 +64,9 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
     $rootScope.clickf = function(file) {
         var cf = Dossier.click({id: file});
     };
+    $rootScope.errorf = function(file) {
+        var cf = Dossier.error({id: file});
+    };
     $rootScope.rsens = function() {
         if ($rootScope.rtri != 'title') {
             return true;
