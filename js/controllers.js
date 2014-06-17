@@ -90,3 +90,10 @@ fruitsControllers.controller('SearchCtrl', ['$scope', '$rootScope', '$routeParam
 	    $scope.searchEnCours = false;
     });
   }]);
+fruitsControllers.controller('NewCtrl', ['$scope', '$rootScope', 'Dossier',
+  function($scope, $rootScope, Dossier) {
+    $rootScope.page = 'new';
+    $rootScope.rechercher = '';
+    
+    $scope.dossier = Dossier.new();
+  }]);

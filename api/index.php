@@ -30,7 +30,7 @@ $app->get('/films/{id}', function($id) use ($app) {
     FROM filmsf
     LEFT JOIN fichiers
     ON fichiers.id = filmsf.fichier
-    WHERE filmsf.tmdbid = ? AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
+    WHERE filmsf.tmdbid = ? AND fichiers.supprime = 0 AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
     ORDER BY sub ASC, nb_clics DESC", array($id));
     
     $film['fichiers'] = array();
@@ -67,7 +67,7 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
     FROM series_episodes
     LEFT JOIN fichiers
     ON fichiers.id = series_episodes.fichier
-    WHERE series_episodes.saison = ?  AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
+    WHERE series_episodes.saison = ?  AND fichiers.supprime = 0 AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
     ORDER BY episode ASC", array($id));
     
     $extSubtitles = array(
@@ -162,7 +162,7 @@ $app->get('/files/{file}/error', function($file) use ($app) {
 });
 
 $app->get('/new', function() use ($app) {
-    $fichiers = $app['db']->fetchAll("SELECT * FROM (SELECT fichiers.id, fichiers.nom, chemin_complet, fichiers.nb_clics, fichiers.taille, fichiers.serveur, type, parent, (type = 'dossier') AS is_dossier
+    $fichiers = $app['db']->fetchAll("SELECT files.id, files.nom, files.chemin_complet, files.nb_clics, files.taille, files.serveur, files.type, files.parent, files.is_dossier, files.date_depose FROM (SELECT fichiers.id, fichiers.nom, chemin_complet, fichiers.nb_clics, fichiers.taille, fichiers.serveur, type, parent, (type = 'dossier') AS is_dossier, fichiers.date_depose
     FROM fichiers
     WHERE supprime = 0
     ORDER BY id DESC

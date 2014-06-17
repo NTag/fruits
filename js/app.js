@@ -44,6 +44,10 @@ fruitsApp.config(['$routeProvider',
         templateUrl: 'partials/serveurs.html',
         controller: 'ServeursCtrl'
       }).
+      when('/new', {
+        templateUrl: 'partials/fichiers.html',
+        controller: 'NewCtrl'
+      }).
       when('/dossier/:id', {
         templateUrl: 'partials/fichiers.html',
         controller: 'DossierCtrl'

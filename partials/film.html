@@ -22,7 +22,7 @@
 					<td class="text-center">{{ fichier.nb_clics }} clic{{ fichier.nb_clics | affs }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
-					<td><a title="Ce fichier a été mal identifié, il ne correspond pas à ce film" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
+					<td><a title="Cliquez ici si vous trouvez que ce fichier a été mal identifié et qu'il ne correspond pas à ce film" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -35,7 +35,7 @@
 					<td class="text-center">{{ fichier.langue }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td class="text-center">{{ fichier.serveur }}</td>
-					<td><a title="Ce fichier a été mal identifié, il ne correspond pas à ce film" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
+					<td><a title="Cliquez ici si vous trouvez que ce fichier a été mal identifié et qu'il ne correspond pas à ce film" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
 				</tr>
 			</tbody>
 		</table>
