@@ -2,6 +2,10 @@
 require('bdd.php');
 $bdd = new PDO(SMSDSN, SMSUSERNAME, SMSPASSWORD);
 
+echo "# Fruits v5
+## Identification des films
+## " . date('Y-m-d H:i:s') . "\n";
+
 // SQL
 $reqAddFilmF = $bdd->prepare("INSERT INTO filmsf
 	VALUES(:file, :tmdbid, :langue, :qualite, :sub)");
