@@ -30,6 +30,10 @@ foreach ($files as $f) {
 		echo "\n" . $pourc . '%  ';
 	}
 	$i++;
+	
+	if (in_array(strtolower($f['nom']), $useless)) {
+    	continue;
+	}
 
 	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
 	$guessit = str_replace('Volap\u00fck', 'VO/VF', $guessit);

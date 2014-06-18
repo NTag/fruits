@@ -53,7 +53,7 @@ foreach ($files as $f) {
 	}
 	$i++;
 	
-	if (in_array(strtolower($s['nom']), $useless)) {
+	if (in_array(strtolower($f['nom']), $useless)) {
     	continue;
 	}
 	

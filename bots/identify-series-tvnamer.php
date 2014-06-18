@@ -52,6 +52,10 @@ foreach ($files as $f) {
 		echo "\n" . $pourc . '%  ';
 	}
 	$i++;
+	
+	if (in_array(strtolower($f['nom']), $useless)) {
+    	continue;
+	}
 
 	exec('rm -rf tvnamer/files/*');
 	touch('tvnamer/files/' . $f['nom']);
