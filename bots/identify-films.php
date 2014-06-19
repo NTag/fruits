@@ -37,7 +37,22 @@ foreach ($files as $f) {
 
 	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
 	$guessit = str_replace('Volap\u00fck', 'VO/VF', $guessit);
-	$infos = json_decode(substr($guessit, strpos($guessit, '{')));
+	$infosNom = json_decode(substr($guessit, strpos($guessit, '{')));
+	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['chemin_complet'])));
+	$guessit = str_replace('Volap\u00fck', 'VO/VF', $guessit);
+	$infosChemin = json_decode(substr($guessit, strpos($guessit, '{')));
+
+	if (!isset($infosNom->title)) {
+		$infos = $infosNom;
+	} elseif (!isset($infosChemin->title)) {
+		$infos = $infosChemin;
+	} else {
+		if ($infosChemin->title->confidence >= $infosNom->title->confidence) {
+			$infos = $infosChemin;
+		} else {
+			$infos = $infosNom;
+		}
+	}
 	
 	// Recherche de l'id sur tmdb
 	if (isset($infos->year)) {
