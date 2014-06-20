@@ -6,28 +6,28 @@ var fruitsServices = angular.module('fruitsServices', ['ngResource']);
 
 fruitsServices.factory('Serie', ['$resource',
   function($resource){
-    return $resource('/fruits/api/series/:id');
+    return $resource('api/series/:id');
   }]);
 fruitsServices.factory('Film', ['$resource',
   function($resource){
-    return $resource('/fruits/api/films/:id');
+    return $resource('api/films/:id');
   }]);
 fruitsServices.factory('Saison', ['$resource',
   function($resource){
-    return $resource('/fruits/api/series/saison/:id');
+    return $resource('api/series/saison/:id');
   }]);
 fruitsServices.factory('Serveur', ['$resource',
   function($resource){
-    return $resource('/fruits/api/serveurs/:id');
+    return $resource('api/serveurs/:id');
   }]);
 fruitsServices.factory('Dossier', ['$resource',
   function($resource){
-    return $resource('/fruits/api/files/:id', {},
-    {click: {url:'/fruits/api/files/:id/click'},
-     error: {url:'/fruits/api/files/:id/error'},
-     new: {url:'/fruits/api/new'}});
+    return $resource('api/files/:id', {},
+    {click: {url:'api/files/:id/click'},
+     error: {url:'api/files/:id/error'},
+     new: {url:'api/new'}});
   }]);
 fruitsServices.factory('Search', ['$resource',
   function($resource){
-    return $resource('/fruits/api/search/:q');
+    return $resource('api/search/:q');
   }]);
