@@ -93,7 +93,7 @@ foreach ($files as $f) {
 				$reqAddSerie->bindValue(':torigin_country', '');
 				$reqAddSerie->bindValue(':toverview', '');
 				$reqAddSerie->execute();
-				$series[$nom] = array('id' => $bdd->lastInsertId());
+				$series[$nom] = array('id' => $infos->id);
 				$reqAddSerie->closeCursor();
 				echo 'S';
 			} else {

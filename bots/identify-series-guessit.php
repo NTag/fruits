@@ -62,8 +62,23 @@ foreach ($files as $f) {
     	$f['chemin_complet'] = str_replace($f['nom'], preg_replace('#^([0-9]{1,3})\-(.+)$#isU', '$2', $f['nom']), $f['chemin_complet']);
 	}
 
-	$guessit = shell_exec('guessit -a ' . escapeshellarg($f['chemin_complet']));
-	$guessit = json_decode(substr($guessit, strpos($guessit, '{')));
+	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
+	$infosNom = json_decode(substr($guessit, strpos($guessit, '{')));
+	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['chemin_complet'])));
+	$infosChemin = json_decode(substr($guessit, strpos($guessit, '{')));
+	
+	if (!isset($infosNom->series) or !isset($infosNom->season) or !isset($infosNom->episodeNumber)) {
+		$guessit = $infosChemin;
+	} elseif (!isset($infosChemin->series) or !isset($infosChemin->season) or !isset($infosChemin->episodeNumber)) {
+		$guessit = $infosNom;
+	} else {
+		if ($infosChemin->series->confidence >= $infosNom->series->confidence) {
+			$guessit = $infosChemin;
+		} else {
+			$guessit = $infosNom;
+		}
+	}
+
 	if (isset($guessit->series) and isset($guessit->season) and isset($guessit->episodeNumber)) {
 		$nom = $guessit->series->value;
 		$nsaison = $guessit->season->value;
@@ -94,7 +109,7 @@ foreach ($files as $f) {
 				$reqAddSerie->bindValue(':torigin_country', '');
 				$reqAddSerie->bindValue(':toverview', '');
 				$reqAddSerie->execute();
-				$series[$nom] = array('id' => $bdd->lastInsertId());
+				$series[$nom] = array('id' => $infos->id);
 				$reqAddSerie->closeCursor();
 				echo 'S';
 			} else {

@@ -43,9 +43,9 @@ foreach ($files as $f) {
 	$infosChemin = json_decode(substr($guessit, strpos($guessit, '{')));
 
 	if (!isset($infosNom->title)) {
-		$infos = $infosNom;
-	} elseif (!isset($infosChemin->title)) {
 		$infos = $infosChemin;
+	} elseif (!isset($infosChemin->title)) {
+		$infos = $infosNom;
 	} else {
 		if ($infosChemin->title->confidence >= $infosNom->title->confidence) {
 			$infos = $infosChemin;
