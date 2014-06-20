@@ -1,5 +1,5 @@
 <?php
-require('bdd.php');
+require('config.php');
 $bdd = new PDO(SMSDSN, SMSUSERNAME, SMSPASSWORD);
 
 echo "# Fruits v5

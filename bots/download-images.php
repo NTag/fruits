@@ -1,5 +1,5 @@
 <?php
-require('bdd.php');
+require('config.php');
 
 echo "# Fruits v5
 ## Telechargement des images des series
