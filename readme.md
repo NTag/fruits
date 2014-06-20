@@ -2,7 +2,9 @@
 
 ## Installation
 > bower install
+
 > chmod +x install.sh
+
 > ./install.sh
 
 - Éditer api/config.php et bots/bdd.php
