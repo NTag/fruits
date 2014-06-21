@@ -1,12 +1,13 @@
 <div class="row">
 	<div class="small-12 medium-10 medium-centered large-8 columns">
-		<h4>{{ dossier.serveur }}{{ dossier.chemin_complet }}</h4>
+		<h4><a title="Ouvrir le dossier" href="ftp://{{ dossier.serveur }}{{ dossier.chemin_complet }}">{{ dossier.serveur }}{{ dossier.chemin_complet }}</a></h4>
 		<a ng-show="dossier.parent > 0" title="Retourner au dossier parent" href="#/dossier/{{ dossier.parent }}"><span class="fi-chevron-left"></span> Dossier parent</a><a ng-hide="dossier.parent > 0 || page == 'new'" title="Retour à la liste des serveurs" href="#/serveurs"><span class="fi-chevron-left"></span> Liste des serveurs</a><br /><br />
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in dossier.fichiers | filter:rechercher" ng-class-odd="'calt'">
 					<td><a title="Accéder à ce dossier" href="#/dossier/{{ fichier.id }}" ng-show="fichier.is_dossier"><span class="fi-folder"></span> {{ fichier.nom }}</a><a title="Télécharger ce fichier" href="ftp://{{ (fichier.serveur == 'thunder' && seuil()) && 'thunder2' || fichier.serveur }}{{ fichier.chemin_complet }}" ng-hide="fichier.is_dossier" ng-click="clickf(fichier.id)">{{ fichier.nom }}</a></td>
 					<td>{{ fichier.nb_clics }} clic{{ fichier.nb_clics | affs }}</td>
+					<td ng-show="page == 'new'">{{ fichier.serveur }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 					<td ng-show="page == 'new'">{{ fichier.date_depose | amCalendar }}</td>
 				</tr>

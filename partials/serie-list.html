@@ -2,7 +2,7 @@
 	<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-8">
 	    <li ng-repeat="serie in series | filter:rechercher | orderBy:rtri:rsens()">
 	    	<a title="Voir cette série" href="#/series/{{ serie.id }}">
-		        <img ng-src="/fruits/api/data/series/poster/{{ serie.tmdbid }}_w300.jpg" alt="{{ serie.nom }}" /><br />
+		        <img ng-src="api/data/series/poster/{{ serie.tmdbid }}_w300.jpg" alt="{{ serie.nom }}" /><br />
 		        {{ serie.nom }}<br />
 	    	</a>
 	        <div class="legende">{{ serie.nbseasons }} saisons / {{ serie.tnbseasons }}</div>
