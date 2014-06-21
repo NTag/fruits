@@ -15,7 +15,7 @@ $app->get('/films', function() use ($app) {
 });
 
 $app->get('/series', function() use ($app) {
-    $series = $app['db']->fetchAll("SELECT id, nom, tmdbid, tfirstdate, tlastdate, tnbseasons, (SELECT COUNT(*) FROM series_saisons AS sa WHERE sa.serie = series.id) AS nbseasons, tpopularity AS popularity, nom AS title, tfirstdate AS release_date
+    $series = $app['db']->fetchAll("SELECT id, nom, tmdbid, tfirstdate, tlastdate, tnbseasons, (SELECT COUNT(*) FROM series_saisons AS sa WHERE sa.serie = series.tmdbid) AS nbseasons, tpopularity AS popularity, nom AS title, tfirstdate AS release_date
     FROM series
     ORDER BY tpopularity DESC");
     return $app->json($series);
@@ -53,7 +53,7 @@ $app->get('/films/{id}', function($id) use ($app) {
 $app->get('/series/{id}', function($id) use ($app) {
     $serie = $app['db']->fetchAssoc("SELECT id, nom, tmdbid, tfirstdate, tlastdate, tnbseasons, tgenres, tin_production, tpopularity, tnetwork, torigin_country, toverview, tepisode_run_time, YEAR(tfirstdate) AS fyear, YEAR(tlastdate) AS lyear, (SELECT COUNT(*) FROM series_saisons AS sa WHERE sa.serie = series.id) AS nbseasons
     FROM series
-    WHERE id = ?", array($id));
+    WHERE tmdbid = ?", array($id));
     $serie['saisons'] = $app['db']->fetchAll("SELECT id, numero
     FROM series_saisons
     WHERE serie = ?
