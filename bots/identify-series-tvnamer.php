@@ -95,7 +95,9 @@ foreach ($files as $f) {
 				$reqAddSerie->bindValue(':torigin_country', '');
 				$reqAddSerie->bindValue(':toverview', '');
 				$reqAddSerie->execute();
-				$series[$infos->id] = array('id' => $infos->id);
+				if (!array_key_exists($infos->id, $series)) {
+					$series[$infos->id] = array('id' => $infos->id);
+				}
 				$nomSerie[$nom] = $infos->id;
 				$reqAddSerie->closeCursor();
 				echo 'S';
