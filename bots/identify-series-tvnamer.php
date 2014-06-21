@@ -77,7 +77,7 @@ foreach ($files as $f) {
 	
 	
 	// La série existe-t-elle en bdd ?
-	if (!array_key_exists($nom, $nomSeries)) {
+	if (!array_key_exists($nom, $nomSerie)) {
 		$searchApi = json_decode(file_get_contents('https://api.themoviedb.org/3/search/tv?api_key=10693a5e1e693837a6c36153f260d8d3&query=' . urlencode($nom), false, $cxContext));
 		if (count($searchApi->results) > 0) {
 			if (levenshtein($nom, strtolower($searchApi->results[0]->original_name)) <= ceil(strlen($nom)*100000)) {
