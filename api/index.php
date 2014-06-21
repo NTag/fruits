@@ -26,11 +26,13 @@ $app->get('/films/{id}', function($id) use ($app) {
     FROM films
     WHERE tmdbid = ?", array($id));
     
-    $fichiers = $app['db']->fetchAll("SELECT fichier, chemin_complet, serveur, nom, taille, langue, qualite, sub, parent, nb_clics
+    $fichiers = $app['db']->fetchAll("SELECT filmsf.fichier, fichiers.chemin_complet, fichiers.serveur, fichiers.nom, fichiers.taille, fichiers.langue, fichiers.qualite, fichiers.sub, fichiers.parent, fichiers.nb_clics
     FROM filmsf
     LEFT JOIN fichiers
     ON fichiers.id = filmsf.fichier
-    WHERE filmsf.tmdbid = ? AND fichiers.supprime = 0 AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
+    LEFT JOIN serveurs
+    ON serveurs.nom = fichiers.serveur
+    WHERE filmsf.tmdbid = ? AND fichiers.supprime = 0 AND serveurs.online=1 AND serveurs.supprime=0 AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
     ORDER BY sub ASC, nb_clics DESC", array($id));
     
     $film['fichiers'] = array();
