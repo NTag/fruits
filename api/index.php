@@ -65,7 +65,7 @@ $app->get('/series/{id}', function($id) use ($app) {
 });
 
 $app->get('/series/saison/{id}', function($id) use ($app) {
-    $episodes = $app['db']->fetchAll("SELECT series_episodes.fichier, series_episodes.saison, series_episodes.episode, series_episodes.tname, series_episodes.tdate, fichiers.chemin_complet, fichiers.nb_clics, fichiers.serveur, fichiers.nom, taille, fichiers.parent
+    $episodes = $app['db']->fetchAll("SELECT series_episodes.fichier, series_episodes.saison, series_episodes.episode, series_episodes.tname, series_episodes.tdate, fichiers.chemin_complet, fichiers.nb_clics, fichiers.serveur, fichiers.nom, fichiers.taille, fichiers.parent
     FROM series_episodes
     LEFT JOIN fichiers
     ON fichiers.id = series_episodes.fichier
