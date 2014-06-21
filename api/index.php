@@ -72,7 +72,7 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
     LEFT JOIN serveurs
     ON serveurs.nom = fichiers.serveur
     WHERE series_episodes.saison = ?  AND fichiers.supprime = 0 AND serveurs.online=1 AND serveurs.supprime=0 AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
-    ORDER BY episode ASC, nb_clics DESC, taille DESC", array($id));
+    ORDER BY series_episodes.episode ASC, fichiers.nb_clics DESC, fichiers.taille DESC", array($id));
     
     $extSubtitles = array(
 	    'srt',
