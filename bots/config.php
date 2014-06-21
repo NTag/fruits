@@ -22,6 +22,12 @@ $useless = array(
     'thumbs.db',
     'albumartsmall.jpg',
     );
+$uselessExt = array(
+	'nfo',
+	'jpg',
+	'jpeg',
+	'png',
+)
 
 function slug($str) {
     $before = array(

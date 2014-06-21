@@ -65,12 +65,14 @@ $app->get('/series/{id}', function($id) use ($app) {
 });
 
 $app->get('/series/saison/{id}', function($id) use ($app) {
-    $episodes = $app['db']->fetchAll("SELECT fichier, saison, episode, tname, tdate, chemin_complet, nb_clics, serveur, nom, taille, fichiers.parent
+    $episodes = $app['db']->fetchAll("SELECT series_episodes.fichier, series_episodes.saison, series_episodes.episode, series_episodes.tname, series_episodes.tdate, fichiers.chemin_complet, fichiers.nb_clics, fichiers.serveur, fichiers.nom, taille, fichiers.parent
     FROM series_episodes
     LEFT JOIN fichiers
     ON fichiers.id = series_episodes.fichier
-    WHERE series_episodes.saison = ?  AND fichiers.supprime = 0 AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
-    ORDER BY episode ASC", array($id));
+    LEFT JOIN serveurs
+    ON serveurs.nom = fichiers.serveur
+    WHERE series_episodes.saison = ?  AND fichiers.supprime = 0 AND serveurs.online=1 AND serveurs.supprime=0 AND (SELECT COUNT(*) FROM ierreurs WHERE ierreurs.fichier = fichiers.id) < 5
+    ORDER BY episode ASC, nb_clics DESC, taille DESC", array($id));
     
     $extSubtitles = array(
 	    'srt',

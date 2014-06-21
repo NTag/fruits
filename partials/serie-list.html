@@ -5,7 +5,7 @@
 		        <img ng-src="api/data/series/poster/{{ serie.tmdbid }}_w300.jpg" alt="{{ serie.nom }}" /><br />
 		        {{ serie.nom }}<br />
 	    	</a>
-	        <div class="legende">{{ serie.nbseasons }} saisons / {{ serie.tnbseasons }}</div>
+	        <div class="legende">{{ serie.nbseasons }} saison{{ serie.nbseasons | affs }} / {{ serie.tnbseasons }}</div>
 	    </li>
 	</ul>
 </div>
