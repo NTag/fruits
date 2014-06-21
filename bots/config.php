@@ -27,6 +27,7 @@ $uselessExt = array(
 	'jpg',
 	'jpeg',
 	'png',
+	'tbn',
 )
 
 function slug($str) {
