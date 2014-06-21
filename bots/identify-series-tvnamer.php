@@ -55,7 +55,8 @@ foreach ($files as $f) {
 	}
 	$i++;
 	
-	if (in_array(strtolower($f['nom']), $useless) or in_array($f['nom'], $not)) {
+	if (in_array(strtolower($f['nom']), $useless)) {
+		echo $f['nom'];
     	continue;
 	}
 
