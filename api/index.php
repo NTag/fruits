@@ -26,7 +26,7 @@ $app->get('/films/{id}', function($id) use ($app) {
     FROM films
     WHERE tmdbid = ?", array($id));
     
-    $fichiers = $app['db']->fetchAll("SELECT filmsf.fichier, fichiers.chemin_complet, fichiers.serveur, fichiers.nom, fichiers.taille, fichiers.langue, fichiers.qualite, fichiers.sub, fichiers.parent, fichiers.nb_clics
+    $fichiers = $app['db']->fetchAll("SELECT filmsf.fichier, fichiers.chemin_complet, fichiers.serveur, fichiers.nom, fichiers.taille, filmsf.langue, filmsf.qualite, filmsf.sub, fichiers.parent, fichiers.nb_clics
     FROM filmsf
     LEFT JOIN fichiers
     ON fichiers.id = filmsf.fichier
