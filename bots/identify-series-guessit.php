@@ -31,12 +31,14 @@ $seriesAndSa = $reqAllSeries->fetchAll();
 $reqAllSeries->closeCursor();
 
 $series = array();
+$nomSerie = array();
 $not = array();
 foreach ($seriesAndSa as $s) {
-	if (!array_key_exists($s['nom'], $series)) {
-		$series[$s['nom']] = array('id' => $s['id']);
+	$nomSerie[$s['nom']] = $s['tmdbid'];
+	if (!array_key_exists($s['tmdbid'], $series)) {
+		$series[$s['tmdbid']] = array('id' => $s['tmdbid']);
 	}
-	$series[$s['nom']][$s['numero']] = $s['saison'];
+	$series[$s['tmdbid']][$s['numero']] = $s['saison'];
 }
 
 $total = count($files);
@@ -91,7 +93,7 @@ foreach ($files as $f) {
 	
 	
 	// La série existe-t-elle en bdd ?
-	if (!array_key_exists($nom, $series)) {
+	if (!array_key_exists($nom, $nomSerie)) {
 		$searchApi = json_decode(file_get_contents('https://api.themoviedb.org/3/search/tv?api_key=10693a5e1e693837a6c36153f260d8d3&query=' . urlencode($nom), false, $cxContext));
 		if (count($searchApi->results) > 0) {
 			if (levenshtein($nom, strtolower($searchApi->results[0]->original_name)) <= ceil(strlen($nom)*100000)) {
@@ -109,7 +111,10 @@ foreach ($files as $f) {
 				$reqAddSerie->bindValue(':torigin_country', '');
 				$reqAddSerie->bindValue(':toverview', '');
 				$reqAddSerie->execute();
-				$series[$nom] = array('id' => $infos->id);
+				if (!array_key_exists($infos->id, $series)) {
+					$series[$infos->id] = array('id' => $infos->id);
+				}
+				$nomSerie[$nom] = $infos->id;
 				$reqAddSerie->closeCursor();
 				echo 'S';
 			} else {
@@ -126,11 +131,11 @@ foreach ($files as $f) {
 	}
 	
 	// La saison existe-t-elle en bdd ?
-	if (!array_key_exists($nsaison, $series[$nom])) {
-		$reqAddSaison->bindValue(':serie', $series[$nom]['id']);
+	if (!array_key_exists($nsaison, $series[$nomSerie[$nom]])) {
+		$reqAddSaison->bindValue(':serie', $series[$nomSerie[$nom]]['id']);
 		$reqAddSaison->bindValue(':saison', $nsaison);
 		$reqAddSaison->execute();
-		$series[$nom][$nsaison] = $bdd->lastInsertId();
+		$series[$nomSerie[$nom]][$nsaison] = $bdd->lastInsertId();
 		$reqAddSaison->closeCursor();
 		echo 's';
 	}
@@ -139,7 +144,7 @@ foreach ($files as $f) {
 	
 	// On ajoute l'épisode
 	$reqAddEpisode->bindValue(':file', $f['id']);
-	$reqAddEpisode->bindValue(':saison', $series[$nom][$nsaison]);
+	$reqAddEpisode->bindValue(':saison', $series[$nomSerie[$nom]][$nsaison]);
 	$reqAddEpisode->bindValue(':nep', $nep);
 	$reqAddEpisode->execute();
 	$reqAddEpisode->closeCursor();
