@@ -130,12 +130,12 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
 
 $app->get('/search/{q}', function($q) use ($app) {
     $fichiers = $app['db']->fetchAll("SELECT fichiers.id, fichiers.nom, chemin_complet, fichiers.nb_clics, fichiers.taille, fichiers.serveur, type, parent, (type = 'dossier') AS is_dossier,
-    ((MATCH (fichiers.chemin_complet) AGAINST (? IN BOOLEAN MODE)) + (MATCH (fichiers.nom) AGAINST (? IN BOOLEAN MODE))*3)*LN(nb_clics+3) AS score
+    ((MATCH (fichiers.chemin_complet) AGAINST (? IN BOOLEAN MODE)) + (MATCH (fichiers.nom) AGAINST (? IN BOOLEAN MODE))*3)*(nb_clics+1) AS score
     FROM fichiers
     LEFT JOIN serveurs
     ON serveurs.nom=fichiers.serveur
-    WHERE serveurs.online=1 AND serveurs.supprime=0 AND MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE)
-    ORDER BY ((MATCH (fichiers.chemin_complet) AGAINST (? IN BOOLEAN MODE)) + (MATCH (fichiers.nom) AGAINST (? IN BOOLEAN MODE))*3)*LN(nb_clics+3) DESC
+    WHERE serveurs.online=1 AND serveurs.supprime=0 AND fichiers.supprime = 0 AND MATCH (chemin_complet) AGAINST (? IN BOOLEAN MODE)
+    ORDER BY ((MATCH (fichiers.chemin_complet) AGAINST (? IN BOOLEAN MODE)) + (MATCH (fichiers.nom) AGAINST (? IN BOOLEAN MODE))*3)*(nb_clics+1) DESC
     LIMIT 0, 200", array($q, $q, $q, $q, $q));
     
     $app['db']->executeUpdate("INSERT INTO recherches VALUES('',?,?,NOW(),'')", array($q, $_SERVER['REMOTE_ADDR']));
