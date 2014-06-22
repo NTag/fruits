@@ -31,7 +31,7 @@ foreach ($files as $f) {
 	}
 	$i++;
 	
-	if (in_array(strtolower($f['nom']), $useless)) {
+	if (in_array(strtolower($f['nom']), $useless) or in_array(strtolower(preg_replace('#^.+\.([a-zA-Z0-9]+)$#isU', '$1', $f['nom'])), $uselessExt)) {
     	continue;
 	}
 
