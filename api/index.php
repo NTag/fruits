@@ -10,13 +10,6 @@ require('config.php');
 $app->get('/films', function() use ($app) {
     $films = $app['db']->fetchAll("SELECT tmdbid, title, titlefr, titleen, titlefrslug, YEAR(release_date) AS date, production, popularity, release_date
     FROM films
-    WHERE (SELECT films.tmdbid FROM filmsf
-    LEFT JOIN fichiers
-    ON fichiers.id = filmsf.fichier
-    LEFT JOIN serveurs
-    ON serveurs.nom = fichiers.serveur
-    WHERE fichiers.supprime = 0 AND serveurs.online=1 AND serveurs.supprime=0 AND filmsf.tmdbid = films.tmdbid
-    LIMIT 0,1) = films.tmdbid
     ORDER BY popularity DESC");
     foreach ($films as &$f) {
 	    $f['popularity'] = (int) $f['popularity'];
