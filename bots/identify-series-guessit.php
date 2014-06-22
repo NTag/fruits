@@ -16,7 +16,7 @@ $reqAddEpisode = $bdd->prepare("INSERT INTO series_episodes
 
 $reqAllFiles = $bdd->prepare("SELECT id, nom, chemin_complet
 	FROM fichiers
-	WHERE LOWER(chemin_complet) LIKE '%/serie%' AND supprime = 0 AND type <> 'dossier' AND id NOT IN (SELECT fichier FROM series_episodes)");
+	WHERE LOWER(chemin_complet) LIKE '%/serie%' AND supprime = 0 AND type <> 'dossier' AND date_depose > DATE_SUB(NOW(), INTERVAL 2 DAY) AND id NOT IN (SELECT fichier FROM series_episodes)");
 $reqAllFiles->execute();
 $files = $reqAllFiles->fetchAll();
 $reqAllFiles->closeCursor();
@@ -114,6 +114,10 @@ foreach ($files as $f) {
 				if (!array_key_exists($infos->id, $series)) {
 					$series[$infos->id] = array('id' => $infos->id);
 				}
+				
+				copy('https://image.tmdb.org/t/p/original/' . $infos->poster_path, '../api/data/series/poster/' . $infos->tmdbid . '.jpg', $cxContext);
+				copy('https://image.tmdb.org/t/p/w300/' . $infos->poster_path, '../api/data/series/poster/' . $infos->tmdbid . '_w300.jpg', $cxContext);
+				
 				$nomSerie[$nom] = $infos->id;
 				$reqAddSerie->closeCursor();
 				echo 'S';

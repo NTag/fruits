@@ -11,7 +11,8 @@ $reqUpdateSerie = $bdd->prepare("UPDATE series
 	WHERE id=:id");
 
 $reqAllSeries = $bdd->prepare("SELECT id, nom, tmdbid
-	FROM series");
+	FROM series
+	WHERE tnbseasons=0");
 $reqAllSeries->execute();
 $series = $reqAllSeries->fetchAll();
 $reqAllSeries->closeCursor();
