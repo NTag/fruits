@@ -13,9 +13,12 @@ fruitsControllers.controller('SeriesListCtrl', ['$scope', '$rootScope', 'Serie',
     $scope.fep = false;
     $scope.series = Serie.query();
     
-    $scope.sfocus = function(sid) {
-		$('#list').animatecss('blur-out', 250, function() { });
-		$scope.focus = true;
+    $scope.min = function(a, b) {
+	    if (a < b) {
+		    return a;
+	    } else {
+		    return b;
+	    }
     };
   }]);
 fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Saison', '$routeParams',
