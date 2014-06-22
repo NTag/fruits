@@ -11,6 +11,9 @@ $app->get('/films', function() use ($app) {
     $films = $app['db']->fetchAll("SELECT tmdbid, title, titlefr, titleen, titlefrslug, YEAR(release_date) AS date, production, popularity, release_date
     FROM films
     ORDER BY popularity DESC");
+    foreach ($films as &$f) {
+	    $f['popularity'] = (int) $f['popularity'];
+    }
     return $app->json($films);
 });
 
