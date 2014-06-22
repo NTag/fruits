@@ -16,8 +16,11 @@ $app->get('/films', function() use ($app) {
     ON fichiers.id = filmsf.fichier
     LEFT JOIN serveurs
     ON serveurs.nom = fichiers.serveur
+    LEFT JOIN ierreurs
+    ON ierreurs.fichier = filmsf.fichier
     WHERE fichiers.supprime = 0 AND serveurs.online=1 AND serveurs.supprime=0
     GROUP BY films.tmdbid
+    HAVING COUNT(*)/COUNT(DISTINCT filmsf.fichier) < 5
     ORDER BY popularity DESC");
     foreach ($films as &$f) {
 	    $f['popularity'] = (int) $f['popularity'];
