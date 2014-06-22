@@ -5,7 +5,7 @@ echo "# Fruits v5
 ## Telechargement des images des series
 ## " . date('Y-m-d H:i:s') . "\n";
 
-$list = json_decode(file_get_contents('http://ntag/fruits/api/series'));
+$list = json_decode(file_get_contents('http://fruits/v5/api/series'));
 
 foreach ($list as $l) {
     echo $l->nom;

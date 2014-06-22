@@ -13,7 +13,7 @@ $reqUpdateEpisode = $bdd->prepare("UPDATE series_episodes
 $reqAllSaisons = $bdd->prepare("SELECT series_saisons.id, numero, tmdbid
 	FROM series_saisons
 	LEFT JOIN series
-	ON series.id = series_saisons.serie");
+	ON series.tmdbid = series_saisons.serie");
 $reqAllSaisons->execute();
 $episodes = $reqAllSaisons->fetchAll();
 $reqAllSaisons->closeCursor();
