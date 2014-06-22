@@ -21,6 +21,9 @@ $app->get('/series', function() use ($app) {
     $series = $app['db']->fetchAll("SELECT id, nom, tmdbid, tfirstdate, tlastdate, tnbseasons, (SELECT COUNT(*) FROM series_saisons AS sa WHERE sa.serie = series.tmdbid) AS nbseasons, tpopularity AS popularity, nom AS title, tfirstdate AS release_date
     FROM series
     ORDER BY tpopularity DESC");
+    foreach ($series as &$f) {
+	    $f['popularity'] = (int) $f['popularity'];
+    }
     return $app->json($series);
 });
 
