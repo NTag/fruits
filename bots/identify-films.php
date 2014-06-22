@@ -12,7 +12,7 @@ $reqAddFilmF = $bdd->prepare("INSERT INTO filmsf
 
 $reqAllFiles = $bdd->prepare("SELECT id, nom, chemin_complet
 	FROM fichiers
-	WHERE LOWER(chemin_complet) LIKE '%/film%' AND supprime = 0 AND type <> 'dossier' AND taille > 2000 AND id NOT IN (SELECT fichier FROM filmsf)");
+	WHERE LOWER(chemin_complet) LIKE '%/film%' AND supprime = 0 AND type <> 'dossier' AND taille > 2000 AND date_depose > DATE_SUB(NOW(), INTERVAL 2 DAY) AND id NOT IN (SELECT fichier FROM filmsf)");
 $reqAllFiles->execute();
 $files = $reqAllFiles->fetchAll();
 $reqAllFiles->closeCursor();
