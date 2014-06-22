@@ -22,10 +22,10 @@ $files = $reqAllFiles->fetchAll();
 $reqAllFiles->closeCursor();
 
 
-$reqAllSeries = $bdd->prepare("SELECT series.id, series.nom, sa.id AS saison, sa.numero
+$reqAllSeries = $bdd->prepare("SELECT series.id, series.tmdbid, series.nom, sa.id AS saison, sa.numero
 	FROM series
 	LEFT JOIN series_saisons AS sa
-	ON sa.serie = series.id");
+	ON sa.serie = series.tmdbid");
 $reqAllSeries->execute();
 $seriesAndSa = $reqAllSeries->fetchAll();
 $reqAllSeries->closeCursor();

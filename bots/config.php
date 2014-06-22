@@ -28,7 +28,7 @@ $uselessExt = array(
 	'jpeg',
 	'png',
 	'tbn',
-)
+);
 
 function slug($str) {
     $before = array(
