@@ -8,8 +8,16 @@ $app['debug'] = true;
 require('config.php');
 
 $app->get('/films', function() use ($app) {
-    $films = $app['db']->fetchAll("SELECT tmdbid, title, titlefr, titleen, titlefrslug, YEAR(release_date) AS date, production, popularity, release_date
+    $films = $app['db']->fetchAll("SELECT films.tmdbid, title, titlefr, titleen, titlefrslug, YEAR(release_date) AS date, production, popularity, release_date
     FROM films
+    LEFT JOIN filmsf
+    ON filmsf.tmdbid = films.tmdbid
+    LEFT JOIN fichiers
+    ON fichiers.id = filmsf.fichier
+    LEFT JOIN serveurs
+    ON serveurs.nom = fichiers.serveur
+    WHERE fichiers.supprime = 0 AND serveurs.online=1 AND serveurs.supprime=0
+    GROUP BY films.tmdbid
     ORDER BY popularity DESC");
     foreach ($films as &$f) {
 	    $f['popularity'] = (int) $f['popularity'];
