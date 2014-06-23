@@ -10,10 +10,14 @@ $reqUpdateEpisode = $bdd->prepare("UPDATE series_episodes
 	SET tdate=:tdate, tname=:tname
 	WHERE saison=:saison AND episode=:episode");
 
-$reqAllSaisons = $bdd->prepare("SELECT series_saisons.id, numero, tmdbid
-	FROM series_saisons
-	LEFT JOIN series
-	ON series.tmdbid = series_saisons.serie");
+$reqAllSaisons = $bdd->prepare("SELECT series_saisons.id, series.tmdbid, series_saisons.numero
+	FROM series_episodes
+	LEFT JOIN series_saisons
+	ON series_saisons.id = series_episodes.saison
+	LEFT JOIN series On series.tmdbid = series_saisons.serie
+	WHERE series_episodes.tname = '' AND series_episodes.tdate='2013-01-01' AND series.tmdbid IS NOT NULL
+	GROUP BY series_saisons.id
+	ORDER BY series.tmdbid ASC");
 $reqAllSaisons->execute();
 $episodes = $reqAllSaisons->fetchAll();
 $reqAllSaisons->closeCursor();
