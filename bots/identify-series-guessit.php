@@ -115,8 +115,8 @@ foreach ($files as $f) {
 					$series[$infos->id] = array('id' => $infos->id);
 				}
 				
-				copy('https://image.tmdb.org/t/p/original/' . $infos->poster_path, '../api/data/series/poster/' . $infos->tmdbid . '.jpg', $cxContext);
-				copy('https://image.tmdb.org/t/p/w300/' . $infos->poster_path, '../api/data/series/poster/' . $infos->tmdbid . '_w300.jpg', $cxContext);
+				copy('https://image.tmdb.org/t/p/original/' . $infos->poster_path, '../api/data/series/poster/' . $infos->id . '.jpg', $cxContext);
+				copy('https://image.tmdb.org/t/p/w300/' . $infos->poster_path, '../api/data/series/poster/' . $infos->id . '_w300.jpg', $cxContext);
 				
 				$nomSerie[$nom] = $infos->id;
 				$reqAddSerie->closeCursor();
