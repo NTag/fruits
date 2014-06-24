@@ -8,3 +8,5 @@ php identify-series-tvnamer.php
 php identify-series-guessit.php
 php infos-series.php
 php infos-episodes.php
+
+php popularity-update.php
