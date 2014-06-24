@@ -44,6 +44,7 @@ foreach ($series as $s) {
 
 	$infos = json_decode(file_get_contents('https://api.themoviedb.org/3/tv/' . $s['tmdbid'] . '?api_key=' . $tmdbKey . '&language=fr', false, $cxContext));
 	$reqUpSerie->bindValue(':popularity', $infos->popularity);
+	$reqUpSerie->bindValue(':tmdbid', $s['tmdbid']);
 	$reqUpSerie->execute();
 	$reqUpSerie->closeCursor();
 	echo '.';
@@ -60,6 +61,7 @@ foreach ($films as $s) {
 
 	$infos = json_decode(file_get_contents('https://api.themoviedb.org/3/movie/' . $s['tmdbid'] . '?api_key=' . $tmdbKey . '&language=fr', false, $cxContext));
 	$reqUpFilm->bindValue(':popularity', $infos->popularity);
+	$reqUpFilm->bindValue(':tmdbid', $s['tmdbid']);
 	$reqUpFilm->execute();
 	$reqUpFilm->closeCursor();
 
