@@ -195,4 +195,25 @@ $app->get('/new', function() use ($app) {
     return $app->json(array('fichiers' => $fichiers));
 });
 
+// Admin
+$app->get('/admin/signaled', function() use ($app) {
+    $fichiers = $app['db']->fetchAll("SELECT COUNT(*) AS nb,fichiers.nom, fichiers.serveur, fichiers.chemin_complet, films.tmdbid AS ftmdbid, films.titlefr, series.nom, sa.numero AS saison, se.episode AS episode, series.tmdbid AS stmdbid
+        FROM ierreurs
+        LEFT JOIN fichiers
+        ON fichiers.id = ierreurs.fichier
+        LEFT JOIN filmsf
+        ON filmsf.fichier = fichiers.id
+        LEFT JOIN films
+        ON films.tmdbid = filmsf.tmdbid
+        LEFT JOIN series_episodes AS se
+        ON se.fichier = fichiers.id
+        LEFT JOIN series_saisons AS sa
+        ON sa.id = se.saison
+        LEFT JOIN series
+        ON series.tmdbid = sa.serie
+        GROUP BY ierreurs.fichier
+        ORDER BY COUNT(*) DESC");
+    return $app->json($fichiers);
+});
+
 $app->run();
