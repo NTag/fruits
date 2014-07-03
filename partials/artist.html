@@ -15,7 +15,7 @@
 		<table>
 			<tbody>
 				<tr ng-repeat="track in album.tracks" ng-class="{calt: $even && mid != track.mid, hover: mid == track.mid}" ng-click="afffiles(album.alid, track.mid, track.files)" class="secondc">
-					<td><a title="Lecture" ng-click="play(track.files[0])"><span class="fi-media-play"></span></a></td>
+					<td><a title="Lecture" ng-click="lplay(track.files[0])"><span class="fi-media-play"></span></a></td>
 					<td class="text-center"><strong>{{ track.track_position | affZero }}</strong></td>
 					<td>{{ track.title }}</td>
 					<td class="text-center">{{ track.duration }}</td>
@@ -27,7 +27,7 @@
 	<div ng-show="alid == album.alid">
 		<table>
 			<tbody>
-				<tr ng-repeat="fichier in files" ng-class-odd="'calt'">
+				<tr ng-repeat="fichier in fichiers" ng-class-odd="'calt'">
 					<td><a title="Télécharger ce fichier" href="ftp://{{ (fichier.serveur == 'thunder' && seuil()) && 'thunder2' || fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier); (fichier.nb_clics = 1*fichier.nb_clics + 1)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}" ng-click="clickf(fichier.parent)"><span class="fi-folder"></span></a></td>
 					<td class="text-center">{{ fichier.nb_clics }}</td>
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
