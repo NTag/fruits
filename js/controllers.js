@@ -103,7 +103,7 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Art
     };
     $scope.play = function(file) {
       $scope.audio_mp3 = $sce.trustAsResourceUrl("ftp://" + file.serveur + file.chemin_complet);
-    }
+    };
   }]);
   
 fruitsControllers.controller('ServeursCtrl', ['$scope', '$rootScope', 'Serveur',
