@@ -31,3 +31,7 @@ fruitsServices.factory('Search', ['$resource',
   function($resource){
     return $resource('api/search/:q');
   }]);
+fruitsServices.factory('Artist', ['$resource',
+  function($resource){
+    return $resource('api/music/artists/:aid');
+  }]);

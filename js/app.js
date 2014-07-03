@@ -40,6 +40,10 @@ fruitsApp.config(['$routeProvider',
         templateUrl: 'partials/film.html',
         controller: 'FilmCtrl'
       }).
+      when('/music/artists', {
+        templateUrl: 'partials/artists-list.html',
+        controller: 'ArtistsListCtrl'
+      }).
       when('/serveurs', {
         templateUrl: 'partials/serveurs.html',
         controller: 'ServeursCtrl'

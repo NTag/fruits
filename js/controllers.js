@@ -70,6 +70,18 @@ fruitsControllers.controller('FilmCtrl', ['$scope', '$rootScope', 'Film', '$rout
     $rootScope.page = 'films';
     $scope.film = Film.get({id: $routeParams.id});
   }]);
+fruitsControllers.controller('ArtistsListCtrl', ['$scope', '$rootScope', 'Artist',
+  function($scope, $rootScope, Artist) {
+    $rootScope.page = 'music';
+    $rootScope.rechercher = '';
+    document.getElementById('rechercher').focus();
+    $scope.fep = false;
+    $scope.artists = Artist.query();
+    $scope.loadNb = 120;
+    $scope.loadMore = function() {
+        $scope.loadNb += 120;
+    };
+  }]);
   
 fruitsControllers.controller('ServeursCtrl', ['$scope', '$rootScope', 'Serveur',
   function($scope, $rootScope, Serveur) {
