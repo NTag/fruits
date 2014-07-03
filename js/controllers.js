@@ -102,7 +102,7 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', 'Artist', '$
       }
     };
     $scope.play = function(file) {
-      $scope.audio.mp3 = "ftp://" + file.serveur + file.chemin_complet;
+      $scope.audio_mp3 = "ftp://" + file.serveur + file.chemin_complet;
     }
   }]);
   
