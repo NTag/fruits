@@ -15,6 +15,7 @@
 		<table>
 			<tbody>
 				<tr ng-repeat="track in album.tracks" ng-class="{calt: $even && mid != track.mid, hover: mid == track.mid}" ng-click="afffiles(album.alid, track.mid, track.files)" class="secondc">
+					<td ng-click="play(track.files[0])"><span class="fi-play"></span></td>
 					<td class="text-center"><strong>{{ track.track_position | affZero }}</strong></td>
 					<td>{{ track.title }}</td>
 					<td class="text-center">{{ track.duration }}</td>
@@ -37,5 +38,9 @@
 		</table>
 	</div>
 	</div>
-	<br /><br /><hr /><br /><br />
+	<p><br /><br /></p>
 </div>
+
+<audio ng-model="audio" controls autoplay >
+    <source ng-src="{{audio.mp3}}" type='audio/mp3'></source>
+</audio>

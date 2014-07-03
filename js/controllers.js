@@ -101,6 +101,9 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', 'Artist', '$
         $scope.mid = mid;
       }
     };
+    $scope.play = function(file) {
+      $scope.audio.mp3 = "ftp://" + file.serveur + file.chemin_complet;
+    }
   }]);
   
 fruitsControllers.controller('ServeursCtrl', ['$scope', '$rootScope', 'Serveur',

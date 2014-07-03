@@ -183,7 +183,7 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
                 'mid' => $a['mid'],
                 'title' => $a['mtitle'],
                 'duration' => $a['mduration'],
-                'track_position' => $a['track_position'],
+                'track_position' => (int) $a['track_position'],
                 'files' => array()
                 );
         }
