@@ -82,6 +82,23 @@ fruitsControllers.controller('ArtistsListCtrl', ['$scope', '$rootScope', 'Artist
         $scope.loadNb += 120;
     };
   }]);
+fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', 'Artist', '$routeParams',
+  function($scope, $rootScope, Artist, $routeParams) {
+    $rootScope.page = 'music';
+    $rootScope.rechercher = '';
+    $scope.artist = Artist.get({aid: $routeParams.aid});
+    $scope.alid = -1;
+    
+    $scope.afffiles = function(alid, files) {
+      $scope.files = files;
+      if (alid == $scope.alid) {
+        $scope.alid = -1;
+        } else {
+          $scope.files = files;
+          $scope.alid = alid;
+        }
+    };
+  }]);
   
 fruitsControllers.controller('ServeursCtrl', ['$scope', '$rootScope', 'Serveur',
   function($scope, $rootScope, Serveur) {

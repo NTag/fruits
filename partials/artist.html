@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="small-12 medium-3 large-2 columns"><img src="api/data/music/artistes/{{ artist.aid }}.jpg" alt="{{ artist.name }}" /></div>
+  <div class="small-12 medium-9 large-10 columns">
+  	<h2>{{ artist.name }}</h2>
+  </div>
+</div>
+
+<div class="row" ng-repeat="album in artist.albums">
+	<div class="small-12 medium-3 large-1 columns">
+		<h3>{{ album.title }}</h3>
+		<img src="api/data/music/albums/{{ album.alid }}.jpg" alt="{{ album.title }}" /><br />
+		{{ album.release_date | amCalendar }}
+	</div>
+	<div class="small-12 medium-9 large-6 columns">
+		<table>
+			<tbody>
+				<tr ng-repeat="track in album.tracks" ng-class="{calt: $even && tid != track.mid, hover: tid == track.mid}" ng-click="afffiles(album.alid, track.files)" class="secondc">
+					<td class="text-center"><strong>{{ track.track_position | affZero }}</strong></td>
+					<td>{{ track.title }}</td>
+					<td class="text-center">{{ track.duration }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="small-12 medium-12 large-5 columns">
+	<div ng-show="alid == album.alid">
+		<table>
+			<tbody>
+				<tr ng-repeat="fichier in files" ng-class-odd="'calt'">
+					<td><a title="Télécharger ce fichier" href="ftp://{{ (fichier.serveur == 'thunder' && seuil()) && 'thunder2' || fichier.serveur }}{{ fichier.chemin_complet }}" ng-click="clickf(fichier.fichier); (fichier.nb_clics = 1*fichier.nb_clics + 1)">{{ fichier.nom }}</a> <a title="Voir le dossier contenant ce fichier" href="#/dossier/{{ fichier.parent }}" ng-click="clickf(fichier.parent)"><span class="fi-folder"></span></a></td>
+					<td class="text-center">{{ fichier.nb_clics }}</td>
+					<td class="text-center">{{ fichier.taille | humanSize }}</td>
+					<td class="text-center">{{ fichier.serveur }}</td>
+					<td><a title="Cliquez ici si vous trouvez que ce fichier a été mal identifié et qu'il ne correspond pas à ce morceau/cet album/cet artiste" ng-click="errorf(fichier.fichier); errorSend = true" ng-hide="errorSend"><span class="fi-warning"></span></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</div>
+</div>
