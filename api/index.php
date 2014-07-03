@@ -131,6 +131,73 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
     return $app->json(array_values($episodest));
 });
 
+// Musique
+$app->get('/music/artists', function() use ($app) {
+    $artists = $app['db']->fetchAll("SELECT aid, name
+        FROM m_artistes");
+    return $app->json($artists);
+});
+$app->get('/music/artists/{aid}', function($aid) use ($app) {
+    $artist = $app['db']->fetchAssoc("SELECT aid, name
+        FROM m_artistes
+        WHERE aid=?", array($id));
+    $albums = $app['db']->fetchAll("SELECT mal.alid, mal.title, mal.release_date, mal.record_type, mal.nb_tracks, mal.duration, mm.mid, mm.title AS mtitle, mm.duration AS mduration, mm.track_position, fichiers.id, fichiers.serveur, fichiers.nom, fichiers.chemin_complet, fichiers.taille, fichiers.nb_clics
+        FROM m_albums AS mal
+        LEFT JOIN m_morceaux AS mm
+        ON mm.alid = mal.alid
+        LEFT JOIN m_fichiers AS mf
+        ON mf.mid = mm.mid
+        LEFT JOIN fichiers
+        ON fichiers.id = mf.fichier
+        LEFT JOIN serveurs
+        ON serveurs.nom = fichiers.serveur
+        WHERE mal.aid = ? AND fichiers.supprime = 0 AND serveurs.online = 1 AND serveurs.supprime = 0
+        ORDER BY mal.release_date DESC, mm.track_position ASC, fichiers.nb_clics DESC, fichiers.taille DESC", array($aid));
+
+    $artist['albums'] = array();
+
+    $alid = 0;
+    $mid = 0;
+    foreach ($albums as $a) {
+        if ($a['alid'] != $alid) {
+            $alid = $a['alid'];
+            if (isset($al)) {
+                $artist['albums'][] = $al;
+            }
+            $al = array(
+                'title' => $a['title'],
+                'release_date' => $a['release_date'],
+                'record_type' => $a['record_type'],
+                'nb_tracks' => $a['nb_tracks'],
+                'duration' => $a['duration'],
+                'tracks' => array()
+                );
+        }
+        if ($a['mid'] != $mid) {
+            if (isset($m)) {
+                $al['tracks'][] = $m;
+            }
+            $m = array(
+                'title' => $a['mtitle'],
+                'duration' => $a['mduration'],
+                'track_position' => $a['track_position'],
+                'files' => array()
+                );
+        }
+        $m['files'][] = array(
+            'id' => $a['id'],
+            'serveur' => $a['serveur'],
+            'nom' => $a['nom'],
+            'chemin_complet' => $a['chemin_complet'],
+            'taille' => $a['taille'],
+            'nb_clics' => $a['nb_clics']
+            );
+    }
+    
+    return $app->json($artist);
+});
+
+
 $app->get('/search/{q}', function($q) use ($app) {
     $fichiers = $app['db']->fetchAll("SELECT fichiers.id, fichiers.nom, chemin_complet, fichiers.nb_clics, fichiers.taille, fichiers.serveur, type, parent, (type = 'dossier') AS is_dossier,
     ((MATCH (fichiers.chemin_complet) AGAINST (? IN BOOLEAN MODE)) + (MATCH (fichiers.nom) AGAINST (? IN BOOLEAN MODE))*3)*(nb_clics+1) AS score
