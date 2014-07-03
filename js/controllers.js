@@ -88,15 +88,18 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', 'Artist', '$
     $rootScope.rechercher = '';
     $scope.artist = Artist.get({aid: $routeParams.aid});
     $scope.alid = -1;
+    $scope.mid = -1;
     
-    $scope.afffiles = function(alid, files) {
+    $scope.afffiles = function(alid, mid, files) {
       $scope.files = files;
-      if (alid == $scope.alid) {
+      if (alid == $scope.alid && mid == $scope.mid) {
         $scope.alid = -1;
-        } else {
-          $scope.files = files;
-          $scope.alid = alid;
-        }
+        $scope.mid = -1;
+      } else {
+        $scope.files = files;
+        $scope.alid = alid;
+        $scope.mid = mid;
+      }
     };
   }]);
   

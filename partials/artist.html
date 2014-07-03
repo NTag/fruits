@@ -11,10 +11,10 @@
 		<img src="api/data/music/albums/{{ album.alid }}.jpg" alt="{{ album.title }}" /><br />
 		{{ album.release_date | amCalendar }}
 	</div>
-	<div class="small-12 medium-8 large-6 columns">
+	<div class="small-12 medium-8 large-5 columns">
 		<table>
 			<tbody>
-				<tr ng-repeat="track in album.tracks" ng-class="{calt: $even && tid != track.mid, hover: tid == track.mid}" ng-click="afffiles(album.alid, track.files)" class="secondc">
+				<tr ng-repeat="track in album.tracks" ng-class="{calt: $even && mid != track.mid, hover: mid == track.mid}" ng-click="afffiles(album.alid, track.mid track.files)" class="secondc">
 					<td class="text-center"><strong>{{ track.track_position | affZero }}</strong></td>
 					<td>{{ track.title }}</td>
 					<td class="text-center">{{ track.duration }}</td>
@@ -37,4 +37,5 @@
 		</table>
 	</div>
 	</div>
+	<br /><br /><br />
 </div>
