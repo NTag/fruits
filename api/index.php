@@ -141,7 +141,7 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
     $artist = $app['db']->fetchAssoc("SELECT aid, name
         FROM m_artistes
         WHERE aid=?", array($aid));
-    $albums = $app['db']->fetchAll("SELECT mal.alid, mal.title, mal.release_date, mal.record_type, mal.nb_tracks, mal.duration, mm.mid, mm.title AS mtitle, mm.duration AS mduration, mm.track_position, fichiers.fichier, fichiers.serveur, fichiers.nom, fichiers.chemin_complet, fichiers.taille, fichiers.nb_clics, fichiers.parent
+    $albums = $app['db']->fetchAll("SELECT mal.alid, mal.title, mal.release_date, mal.record_type, mal.nb_tracks, mal.duration, mm.mid, mm.title AS mtitle, mm.duration AS mduration, mm.track_position, mf.fichier, fichiers.serveur, fichiers.nom, fichiers.chemin_complet, fichiers.taille, fichiers.nb_clics, fichiers.parent
         FROM m_albums AS mal
         LEFT JOIN m_morceaux AS mm
         ON mm.alid = mal.alid

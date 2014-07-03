@@ -1,7 +1,7 @@
 <div id="list" infinite-scroll="loadMore()" infinite-scroll-distance="2">
 	<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-8">
 	    <li ng-repeat="artist in artists | filter:rechercher | orderBy:rtri:rsens() | limitTo:loadNb">
-	    	<a title="Voir cet artiste" href="#/music/artist/{{ artist.aid }}">
+	    	<a title="Voir cet artiste" href="#/music/artists/{{ artist.aid }}">
 		        <img ng-src="api/data/music/artistes/{{ artist.aid }}.jpg" alt="{{ artist.name }}" /><br />
 		        {{ artist.name }}
 	    	</a>
@@ -14,7 +14,7 @@
 <img src="images/load_big.gif" alt="Chargement" />
 </div>
 
-<div ng-hide="films.length == 0">
+<div ng-hide="artists.length == 0">
 	<div class="text-center" ng-show="(artists | filter:rechercher).length == 0">
 	<p><br /></p>
 	Appuyez sur Entrée pour rechercher dans tous les fichiers ;-)
