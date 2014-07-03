@@ -140,7 +140,7 @@ $app->get('/music/artists', function() use ($app) {
 $app->get('/music/artists/{aid}', function($aid) use ($app) {
     $artist = $app['db']->fetchAssoc("SELECT aid, name
         FROM m_artistes
-        WHERE aid=?", array($id));
+        WHERE aid=?", array($aid));
     $albums = $app['db']->fetchAll("SELECT mal.alid, mal.title, mal.release_date, mal.record_type, mal.nb_tracks, mal.duration, mm.mid, mm.title AS mtitle, mm.duration AS mduration, mm.track_position, fichiers.id, fichiers.serveur, fichiers.nom, fichiers.chemin_complet, fichiers.taille, fichiers.nb_clics
         FROM m_albums AS mal
         LEFT JOIN m_morceaux AS mm
@@ -174,6 +174,7 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
                 );
         }
         if ($a['mid'] != $mid) {
+            $mid = $a['mid'];
             if (isset($m)) {
                 $al['tracks'][] = $m;
             }
