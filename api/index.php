@@ -165,6 +165,7 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
                 $artist['albums'][] = $al;
             }
             $al = array(
+                'alid' => $a['alid'],
                 'title' => $a['title'],
                 'release_date' => $a['release_date'],
                 'record_type' => $a['record_type'],
