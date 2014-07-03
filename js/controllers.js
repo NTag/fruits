@@ -82,8 +82,8 @@ fruitsControllers.controller('ArtistsListCtrl', ['$scope', '$rootScope', 'Artist
         $scope.loadNb += 120;
     };
   }]);
-fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', 'Artist', '$routeParams',
-  function($scope, $rootScope, Artist, $routeParams) {
+fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Artist', '$routeParams',
+  function($scope, $rootScope, $sce, Artist, $routeParams) {
     $rootScope.page = 'music';
     $rootScope.rechercher = '';
     $scope.artist = Artist.get({aid: $routeParams.aid});
@@ -102,7 +102,7 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', 'Artist', '$
       }
     };
     $scope.play = function(file) {
-      $scope.audio_mp3 = "ftp://" + file.serveur + file.chemin_complet;
+      $scope.audio_mp3 = $sce.trustAsResourceUrl("ftp://" + file.serveur + file.chemin_complet);
     }
   }]);
   
