@@ -90,18 +90,18 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Art
     $scope.alid = -1;
     $scope.mid = -1;
     
-    $scope.afffiles = function(alid, mid, files) {
-      $scope.files = files;
-      if (alid == $scope.alid && mid == $scope.mid) {
+    $scope.afffiles = function(falid, fmid, ffiles) {
+      $scope.files = ffiles;
+      if (falid == $scope.alid && fmid == $scope.mid) {
         $scope.alid = -1;
         $scope.mid = -1;
       } else {
-        $scope.files = files;
-        $scope.alid = alid;
-        $scope.mid = mid;
+        $scope.alid = falid;
+        $scope.mid = fmid;
       }
     };
     $scope.play = function(file) {
+      console.log('ok');
       $scope.audio_mp3 = $sce.trustAsResourceUrl("ftp://" + file.serveur + file.chemin_complet);
     };
   }]);
