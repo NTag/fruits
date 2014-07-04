@@ -53,7 +53,7 @@ angular.module('fruitsFilters', []).filter('humanSize', function() {
     if (n < 60) {
       return "00:" + zero(n);
     }
-    if (n < 3600 {
+    if (n < 3600) {
       return zero(Math.floor(n/60)) + ":" + zero(Math.floor(n%60));
     }
     return zero(Math.floor(n/3660)) + ":" + zero(Math.floor((n%3660)/60)) + ":" + zero(Math.floor(n%60));
