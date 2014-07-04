@@ -48,6 +48,16 @@ angular.module('fruitsFilters', []).filter('humanSize', function() {
     }
     return Math.floor(n/60) + "h" + nm;
   };
+}).filter('durees', function() {
+  return function(n) {
+    if (n < 60) {
+      return "00:" + zero(n);
+    }
+    if (n < 3600 {
+      return zero(Math.floor(n/60)) + ":" + zero(Math.floor(n%60));
+    }
+    return zero(Math.floor(n/3660)) + ":" + zero(Math.floor((n%3660)/60)) + ":" + zero(Math.floor(n%60));
+  };
 }).filter('stars', function() {
   return function(score) {
     var n = Math.round(score/2);

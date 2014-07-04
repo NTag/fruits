@@ -159,21 +159,6 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
     $alid = 0;
     $mid = 0;
     foreach ($albums as $a) {
-        if ($a['alid'] != $alid) {
-            $alid = $a['alid'];
-            if (isset($al)) {
-                $artist['albums'][] = $al;
-            }
-            $al = array(
-                'alid' => $a['alid'],
-                'title' => $a['title'],
-                'release_date' => $a['release_date'],
-                'record_type' => $a['record_type'],
-                'nb_tracks' => $a['nb_tracks'],
-                'duration' => $a['duration'],
-                'tracks' => array()
-                );
-        }
         if ($a['mid'] != $mid) {
             $mid = $a['mid'];
             if (isset($m)) {
@@ -196,6 +181,22 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
             'taille' => $a['taille'],
             'nb_clics' => $a['nb_clics']
             );
+
+        if ($a['alid'] != $alid) {
+            $alid = $a['alid'];
+            if (isset($al)) {
+                $artist['albums'][] = $al;
+            }
+            $al = array(
+                'alid' => $a['alid'],
+                'title' => $a['title'],
+                'release_date' => $a['release_date'],
+                'record_type' => $a['record_type'],
+                'nb_tracks' => $a['nb_tracks'],
+                'duration' => $a['duration'],
+                'tracks' => array()
+                );
+        }
     }
     
     return $app->json($artist);

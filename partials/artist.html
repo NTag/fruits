@@ -4,7 +4,7 @@
   	<h2>{{ artist.name }}</h2>
   </div>
 </div>
-
+<h3>Albums</h3>
 <div class="row" ng-repeat="album in artist.albums">
 	<div class="small-12 medium-3 large-1 columns">
 		<img src="api/data/music/albums/{{ album.alid }}.jpg" alt="{{ album.title }}" /><br />
@@ -18,7 +18,7 @@
 					<td><a title="Lecture" ng-click="lplay(track.files[0])"><span class="fi-media-play"></span></a></td>
 					<td class="text-center"><strong>{{ track.track_position | affZero }}</strong></td>
 					<td>{{ track.title }}</td>
-					<td class="text-center">{{ track.duration }}</td>
+					<td class="text-center">{{ track.duration | durees }}</td>
 				</tr>
 			</tbody>
 		</table>
