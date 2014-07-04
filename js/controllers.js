@@ -129,11 +129,9 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
       if (window.confirm("Les " + $scope.dossier.fichiers.length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
         var fileArray = $scope.dossier.fichiers;
         var fileIndex = 0;
-        $('#download-iframe').attr('src', fileArray[fileIndex]);
-        fileIndex++;
         var interval = setInterval(function() {
             if(fileIndex < fileArray.length) {
-                $('#download-iframe').attr('src', fileArray[fileIndex]);
+                $('#download-iframe').attr('src', "ftp://" + fileArray[fileIndex].serveur + fileArray[fileIndex].chemin_complet);
                 fileIndex++;
             } else {
                 clearInterval(interval);
