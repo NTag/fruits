@@ -126,10 +126,25 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
     $scope.dossier = Dossier.get({id: $routeParams.id});
 
     $scope.dlFolder = function() {
-      if (window.confirm("Les " + $scope.dossier.fichiers.length + " vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
+      if (window.confirm("Les " + $scope.dossier.fichiers.length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
+        var fileArray = $scope.dossier.fichiers;
+        var fileIndex = 0;
+        $('#download-iframe').attr('src', fileArray[fileIndex]);
+        fileIndex++;
+        var interval = setInterval(function() {
+            if(fileIndex < fileArray.length) {
+                $('#download-iframe').attr('src', fileArray[fileIndex]);
+                fileIndex++;
+            } else {
+                clearInterval(interval);
+            }
+        },
+        100);
+        /*
         $scope.dossier.fichiers.forEach(function(f) {
           window.open("ftp://" + f.serveur + f.chemin_complet);
         });
+*/
       }
     };
   }]);
