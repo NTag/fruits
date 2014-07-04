@@ -89,9 +89,8 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Art
     $scope.artist = Artist.get({aid: $routeParams.aid});
     $scope.palid = -1;
     $scope.pmid = -1;
-    
+    var ltracks;
     $scope.afffiles = function(falid, fmid, ffiles) {
-      $scope.fichiers = ffiles;
       if (falid == $scope.palid && fmid == $scope.pmid) {
         $scope.palid = -1;
         $scope.pmid = -1;
@@ -99,10 +98,16 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Art
         $scope.palid = falid;
         $scope.pmid = fmid;
       }
+      ltracks = ffiles;
+      ltracks.forEach(function(t) {
+          t.seuil = $rootScope.seuil(); 
+        });
+      $scope.ftracks = ltracks;
     };
     $scope.lplay = function(ffile) {
-      console.log(ffile);
-      $scope.audio_mp3 = $sce.trustAsResourceUrl("ftp://" + ffile.serveur + ffile.chemin_complet);
+      console.log("ftp://" + ffile.serveur + ffile.chemin_complet);
+      //$scope.audio_mp3 = $sce.trustAsResourceUrl("ftp://" + ffile.serveur + ffile.chemin_complet);
+      lecteurm.src="ftp://" + ffile.serveur + ffile.chemin_complet;
     };
   }]);
   
