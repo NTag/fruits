@@ -87,17 +87,17 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Art
     $rootScope.page = 'music';
     $rootScope.rechercher = '';
     $scope.artist = Artist.get({aid: $routeParams.aid});
-    $scope.alid = -1;
-    $scope.mid = -1;
+    $scope.palid = -1;
+    $scope.pmid = -1;
     
     $scope.afffiles = function(falid, fmid, ffiles) {
       $scope.fichiers = ffiles;
-      if (falid == $scope.alid && fmid == $scope.mid) {
-        $scope.alid = -1;
-        $scope.mid = -1;
+      if (falid == $scope.palid && fmid == $scope.pmid) {
+        $scope.palid = -1;
+        $scope.pmid = -1;
       } else {
-        $scope.alid = falid;
-        $scope.mid = fmid;
+        $scope.palid = falid;
+        $scope.pmid = fmid;
       }
     };
     $scope.lplay = function(ffile) {

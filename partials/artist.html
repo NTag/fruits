@@ -14,7 +14,7 @@
 	<div class="small-12 medium-8 large-5 columns">
 		<table>
 			<tbody>
-				<tr ng-repeat="track in album.tracks" ng-class="{calt: $even && mid != track.mid, hover: mid == track.mid}" ng-click="afffiles(album.alid, track.mid, track.files)" class="secondc">
+				<tr ng-repeat="track in album.tracks" ng-class="{calt: $even && pmid != track.mid, hover: pmid == track.mid}" ng-click="afffiles(album.alid, track.mid, track.files)" class="secondc">
 					<td><a title="Lecture" ng-click="lplay(track.files[0])"><span class="fi-media-play"></span></a></td>
 					<td class="text-center"><strong>{{ track.track_position | affZero }}</strong></td>
 					<td>{{ track.title }}</td>
@@ -24,7 +24,7 @@
 		</table>
 	</div>
 	<div class="small-12 medium-12 large-5 columns">
-	<div ng-show="alid == album.alid">
+	<div ng-show="palid == album.alid">
 		<table>
 			<tbody>
 				<tr ng-repeat="fichier in fichiers" ng-class-odd="'calt'">
