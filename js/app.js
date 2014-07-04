@@ -89,11 +89,12 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
 	    return Math.random() > 0.4;
     };
     var lecteurm = document.getElementById('lecteurm');
-    function zero(n) {
-      if (n < 10) {
-        return "0" + n;
-      } else {
-        return n;
-      }
-    }
 });
+
+function fzero(n) {
+  if (n < 10) {
+    return "0" + n;
+  } else {
+    return n;
+  }
+}
