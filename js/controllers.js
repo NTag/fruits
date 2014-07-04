@@ -124,6 +124,14 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
     $rootScope.rechercher = '';
     
     $scope.dossier = Dossier.get({id: $routeParams.id});
+
+    $scope.dlFolder = function() {
+      if (window.confirm("Les " + $scope.dossier.fichiers.length + " vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
+        $scope.dossier.fichiers.forEach(function(f) {
+          window.open("ftp://" + f.serveur + f.chemin_complet);
+        });
+      }
+    };
   }]);
 fruitsControllers.controller('SearchCtrl', ['$scope', '$rootScope', '$routeParams', 'Search',
   function($scope, $rootScope, $routeParams, Search) {
