@@ -152,7 +152,7 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
         LEFT JOIN serveurs
         ON serveurs.nom = fichiers.serveur
         WHERE mal.aid = ? AND fichiers.supprime = 0 AND serveurs.online = 1 AND serveurs.supprime = 0
-        ORDER BY mal.release_date DESC, mm.track_position ASC, fichiers.nb_clics DESC, fichiers.taille DESC", array($aid));
+        ORDER BY mal.release_date DESC, mal.alid, mm.track_position ASC, fichiers.nb_clics DESC, fichiers.taille DESC", array($aid));
 
     $artist['albums'] = array();
 
