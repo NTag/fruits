@@ -107,16 +107,16 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Art
     $scope.lplay = function(ftrack) {
       if ($rootScope.player.mid == ftrack.mid) {
         if ($rootScope.player.play) {
-          $rootScope.lecteur.pause();
+          $rootScope.player.lecteur.pause();
           $rootScope.player.play = false;
         } else {
-          $rootScope.lecteur.play();
+          $rootScope.player.lecteur.play();
           $rootScope.player.play = true;
         }
       } else {
         var ffile = ftrack.files[0];
-        $rootScope.lecteur.src="ftp://" + ffile.serveur + ffile.chemin_complet;
-        $rootScope.lecteur.play();
+        $rootScope.player.lecteur.src="ftp://" + ffile.serveur + ffile.chemin_complet;
+        $rootScope.player.lecteur.play();
         $rootScope.player.play = true;
       }
     };
