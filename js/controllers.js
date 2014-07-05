@@ -148,7 +148,7 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
         var i = 0;
         imgFtpState = -1;
         var serveur = document.getElementsByClassName("dwfile")[i].dataset.serveur;
-        document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + Math.random() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+        document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
         var interval = setInterval(function() {
           if (i < document.getElementsByClassName("dwfile").length) {
             serveur = document.getElementsByClassName("dwfile")[i].dataset.serveur;
@@ -158,10 +158,10 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
               document.getElementsByClassName("dwfile")[i].dispatchEvent(clickEvent);
               i++;
               imgFtpState = -1;
-              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + Math.random() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
             } else if (imgFtpState == 0) {
               imgFtpState = -1;
-              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + Math.random() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
             }
           } else {
               alert("Vous pouvez désormais quitter cette page. Le téléchargement est presque terminé et peut se poursuivre même si vous quitter la page.");
