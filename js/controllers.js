@@ -134,7 +134,7 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
   function($scope, $rootScope, $routeParams, Dossier, browser) {
     $rootScope.page = 'serveurs';
     $rootScope.rechercher = '';
-    $scope.bDlFolder = browser() != 'safari' && browser() != 'ie';
+    $scope.bDlFolder = browser() == 'chrome';
     
     $scope.dossier = Dossier.get({id: $routeParams.id}, function() {
       $scope.dossier.fichiers.forEach(function(t) {
