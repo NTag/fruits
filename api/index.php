@@ -269,6 +269,19 @@ $app->get('/new', function() use ($app) {
     return $app->json(array('fichiers' => $fichiers));
 });
 
+$app->get('/checkimages', function() use ($app) {
+    $images = $app['db']->fetchAll("SELECT chemin_complet, serveur
+        FROM fichiers
+        WHERE supprime = 0 AND nom LIKE '%.jpg'
+        GROUP BY serveur");
+    $cor = array();
+    foreach ($images as $i) {
+        $cor[$i['serveur']] = $i['chemin_complet'];
+    }
+    
+    return $app->json($cor);
+});
+
 // Admin
 $app->get('/admin/signaled', function() use ($app) {
     $fichiers = $app['db']->fetchAll("SELECT COUNT(*) AS nb,fichiers.nom, fichiers.serveur, fichiers.chemin_complet, films.tmdbid AS ftmdbid, films.titlefr, series.nom, sa.numero AS saison, se.episode AS episode, series.tmdbid AS stmdbid

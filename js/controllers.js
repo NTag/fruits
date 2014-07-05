@@ -145,18 +145,22 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
       if (window.confirm("Les " + document.getElementsByClassName("dwfile").length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
         var fileArray = $scope.dossier.fichiers;
         var i = 0;
+        imgFtpState = -1;
+        var serveur = document.getElementsByClassName("dwfile")[i].dataset.serveur;
+        document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
         var interval = setInterval(function() {
           if (i < document.getElementsByClassName("dwfile").length) {
+            serveur = document.getElementsByClassName("dwfile")[i].dataset.serveur;
             if (imgFtpState == 1) {
               var clickEvent = document.createEvent("MouseEvent");
               clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
               document.getElementsByClassName("dwfile")[i].dispatchEvent(clickEvent);
               i++;
               imgFtpState = -1;
-              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + document.getElementsByClassName("dwfile")[i].dataset.serveur + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
             } else if (imgFtpState == 0) {
               imgFtpState = -1;
-              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + document.getElementsByClassName("dwfile")[i].dataset.serveur + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
             }
           } else {
               clearInterval(interval);
