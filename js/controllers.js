@@ -143,6 +143,7 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
 
     $scope.dlFolder = function() {
       if (window.confirm("Les " + document.getElementsByClassName("dwfile").length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
+        alert("Le téléchargement va commencer, veuillez ne pas quitter la page pendant celui-ci.");
         var fileArray = $scope.dossier.fichiers;
         var i = 0;
         imgFtpState = -1;
@@ -163,6 +164,7 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
               document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + Math.random() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
             }
           } else {
+              alert("Vous pouvez désormais quitter cette page. Le téléchargement est presque terminé et peut se poursuivre même si vous quitter la page.");
               clearInterval(interval);
           }
         },
