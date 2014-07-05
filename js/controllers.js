@@ -168,7 +168,7 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
               clearInterval(interval);
           }
         },
-        600);
+        1400);
       }
     };
   }]);
