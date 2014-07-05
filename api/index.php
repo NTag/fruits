@@ -198,6 +198,8 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
                 );
         }
     }
+    $al['tracks'][] = $m;
+    $artist['albums'][] = $al;
     
     return $app->json($artist);
 });
