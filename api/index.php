@@ -171,22 +171,13 @@ $app->get('/music/artists/{aid}', function($aid) use ($app) {
                 'files' => array()
                 );
         }
-        if (preg_match('!!u', $a['nom'])) {
-           $nom = $a['nom'];
-        } else {
-           $nom = utf8_decode($a['nom']);
-        }
-        if (preg_match('!!u', $a['chemin_complet'])) {
-           $chemin_complet = $a['chemin_complet'];
-        } else {
-           $chemin_complet = utf8_decode($a['chemin_complet']);
-        }
+
         $m['files'][] = array(
             'fichier' => $a['fichier'],
             'parent' => $a['parent'],
             'serveur' => $a['serveur'],
-            'nom' => $nom,
-            'chemin_complet' => $chemin_complet,
+            'nom' => iconv('UTF-8', 'UTF-8//IGNORE', utf8_decode($a['nom'])),
+            'chemin_complet' => iconv('UTF-8', 'UTF-8//IGNORE', utf8_decode($a['chemin_complet'])),
             'taille' => $a['taille'],
             'nb_clics' => $a['nb_clics']
             );
