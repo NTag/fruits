@@ -138,7 +138,7 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
     $scope.dossier = Dossier.get({id: $routeParams.id});
 
     $scope.dlFolder = function() {
-      if (window.confirm("Les " + $scope.dossier.fichiers.length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
+      if (window.confirm("Les " + document.getElementsByClassName("dwfile").length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
         var fileArray = $scope.dossier.fichiers;
         var i = 0;
         var interval = setInterval(function() {
