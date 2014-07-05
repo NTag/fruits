@@ -278,6 +278,7 @@ $app->get('/checkimages', function() use ($app) {
     foreach ($images as $i) {
         $cor[$i['serveur']] = $i['chemin_complet'];
     }
+    $cor['thunder2'] = $cor['thunder'];
     
     return $app->json($cor);
 });
