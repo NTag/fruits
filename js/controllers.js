@@ -131,7 +131,7 @@ fruitsControllers.controller('ServeursCtrl', ['$scope', '$rootScope', 'Serveur',
     $scope.serveurs = Serveur.query();
   }]);
 fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routeParams', 'Dossier', 'browser',
-  function($scope, $rootScope, $routeParams, Dossier) {
+  function($scope, $rootScope, $routeParams, Dossier, browser) {
     $rootScope.page = 'serveurs';
     $rootScope.rechercher = '';
     $scope.bDlFolder = browser() != 'safari' && browser() != 'ie';
