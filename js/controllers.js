@@ -119,6 +119,7 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Art
         $rootScope.player.lecteur.play();
         $rootScope.player.play = true;
       }
+      $rootScope.player.mid = ftrack.mid;
     };
   }]);
   
