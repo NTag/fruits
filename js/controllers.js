@@ -104,10 +104,21 @@ fruitsControllers.controller('ArtistCtrl', ['$scope', '$rootScope', '$sce', 'Art
         });
       $scope.ftracks = ltracks;
     };
-    $scope.lplay = function(ffile) {
-      console.log("ftp://" + ffile.serveur + ffile.chemin_complet);
-      //$scope.audio_mp3 = $sce.trustAsResourceUrl("ftp://" + ffile.serveur + ffile.chemin_complet);
-      lecteurm.src="ftp://" + ffile.serveur + ffile.chemin_complet;
+    $scope.lplay = function(ftrack) {
+      if ($rootScope.player.mid == ftrack.mid) {
+        if ($rootScope.player.play) {
+          $rootScope.lecteur.pause();
+          $rootScope.player.play = false;
+        } else {
+          $rootScope.lecteur.play();
+          $rootScope.player.play = true;
+        }
+      } else {
+        var ffile = ftrack.files[0];
+        $rootScope.lecteur.src="ftp://" + ffile.serveur + ffile.chemin_complet;
+        $rootScope.lecteur.play();
+        $rootScope.player.play = true;
+      }
     };
   }]);
   

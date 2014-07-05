@@ -88,7 +88,11 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
     $rootScope.seuil = function() {
 	    return Math.random() > 0.4;
     };
-    var lecteurm = document.getElementById('lecteurm');
+    $rootScope.player = {
+      "play": false,
+      "mid": -1,
+      "lecteur": document.getElementById('lecteurm')
+    };
 });
 
 function fzero(n) {
