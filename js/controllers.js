@@ -135,7 +135,11 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
     $rootScope.page = 'serveurs';
     $rootScope.rechercher = '';
     
-    $scope.dossier = Dossier.get({id: $routeParams.id});
+    $scope.dossier = Dossier.get({id: $routeParams.id}, function() {
+      $scope.dossier.fichiers.forEach(function(t) {
+          t.seuil = $rootScope.seuil(); 
+        });
+    });
 
     $scope.dlFolder = function() {
       if (window.confirm("Les " + document.getElementsByClassName("dwfile").length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
@@ -143,10 +147,17 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
         var i = 0;
         var interval = setInterval(function() {
           if (i < document.getElementsByClassName("dwfile").length) {
-            var clickEvent = document.createEvent("MouseEvent");
-            clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
-            document.getElementsByClassName("dwfile")[i].dispatchEvent(clickEvent);
-            i++;
+            if (imgFtpState == 1) {
+              var clickEvent = document.createEvent("MouseEvent");
+              clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+              document.getElementsByClassName("dwfile")[i].dispatchEvent(clickEvent);
+              i++;
+              imgFtpState = -1;
+              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + document.getElementsByClassName("dwfile")[i].dataset.serveur + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+            } else if (imgFtpState == 0) {
+              imgFtpState = -1;
+              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + document.getElementsByClassName("dwfile")[i].dataset.serveur + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+            }
           } else {
               clearInterval(interval);
           }

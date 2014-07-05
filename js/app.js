@@ -93,6 +93,8 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
       "mid": -1,
       "lecteur": document.getElementById('lecteurm')
     };
+
+    var imgFtpState = -1;
 });
 
 function fzero(n) {
