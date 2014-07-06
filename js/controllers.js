@@ -51,6 +51,117 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
 			$scope.fepf = true;
 		}
     };
+
+    // Retourne des infos concernant les choix possibles
+    $scope.preDlSaison = function(episodes) {
+      var nbEp = episodes.length;
+
+      // On trouve les plus gros et plus petits fichiers
+      var choixQualite = {
+        min: {
+          taille: 0,
+          nb_clics: 0
+        },
+        max: {
+          taille: 0,
+          nb_clics: 0
+        },
+        most: {
+          taille: 0,
+          nb_clics: 0
+        },
+        moyen: {
+          taille: 0,
+          nb_clics: 0
+        }
+      }
+      for (var i = 0; i < nbEp; i++) {
+        episodes[i].min = {
+          taille: 999999999999,
+          nb_clics: 0,
+          id: -1
+        };
+        episodes[i].max = {
+          taille: 0,
+          nb_clics: 0,
+          id: -1
+        };
+        episodes[i].most = {
+          taille: 0,
+          nb_clics: 0,
+          id: -1
+        };
+        for (var j = 0; j < episodes[i].ep; j++) {
+          if (episodes[i].ep[j].taille > 1000 && (episodes[i].ep[j].taille < (0.9*episodes[i].min.taille)
+            || (episodes[i].ep[j].taille < (1.1*episodes[i].min.taille) && episodes[i].ep[j].nb_clics > episodes[i].min.nb_clics))) {
+            episodes[i].min = {
+              taille: episodes[i].ep[j].taille,
+              nb_clics: episodes[i].ep[j].nb_clics,
+              id: j
+            };
+          }
+          if (episodes[i].ep[j].taille > (1.1*episodes[i].max.taille)
+            || (episodes[i].ep[j].taille > (0.9*episodes[i].max.taille) && episodes[i].ep[j].nb_clics > episodes[i].max.nb_clics)) {
+            episodes[i].max = {
+              taille: episodes[i].ep[j].taille,
+              nb_clics: episodes[i].ep[j].nb_clics,
+              id: j
+            };
+          }
+          if (episodes[i].ep[j].nb_clics > episodes[i].most.nb_clics) {
+            episodes[i].most = {
+              taille: episodes[i].ep[j].taille,
+              nb_clics: episodes[i].ep[j].nb_clics,
+              id: j
+            };
+          }
+        }
+        choixQualite.min.taille += episodes[i].min.taille;
+        choixQualite.min.nb_clics += episodes[i].min.nb_clics;
+        choixQualite.max.taille += episodes[i].max.taille;
+        choixQualite.max.nb_clics += episodes[i].max.nb_clics
+        choixQualite.most.taille += episodes[i].most.taille;
+        choixQualite.most.nb_clics += episodes[i].most.nb_clics
+      }
+
+      // On cherche des fichiers moyens
+      for (var i = 0; i < nbEp; i++) {
+        episodes[i].moyen = {
+          taille: 0,
+          nb_clics: 0,
+          id: -1
+        };
+        for (var j = 0; j < episodes[i].ep; j++) {
+          if (episodes[i].ep[j].taille > 1000
+            && episodes[i].ep[j].taille > (1.9*episodes[i].min.taille)
+            && episodes[i].ep[j].taille < (0.7*episodes[i].max.taille)
+            && episodes[i].ep[j].nb_clics > episodes[i].moyen.nb_clics) {
+            episodes[i].moyen = {
+              taille: episodes[i].ep[j].taille,
+              nb_clics: episodes[i].ep[j].nb_clics,
+              id: j
+            };
+          }
+        }
+        choixQualite.moyen.taille += episodes[i].moyen.taille;
+        choixQualite.moyen.nb_clics += episodes[i].moyen.nb_clics
+      }
+
+      // On regarde s'il y a des qualités à virer
+      if ((choixQualite.most.taille > 0.9*choixQualite.min.taille && choixQualite.most.taille < 1.2*choixQualite.min.taille)
+        || (choixQualite.most.taille > 0.9*choixQualite.max.taille && choixQualite.most.taille < 1.1*choixQualite.max.taille)
+        || (choixQualite.most.taille > 0.9*choixQualite.moyen.taille && choixQualite.most.taille < 1.1*choixQualite.moyen.taille)) {
+        delete choixQualite.most;
+      }
+      if ((choixQualite.moyen.taille > 0.9*choixQualite.min.taille && choixQualite.moyen.taille < 1.2*choixQualite.min.taille)
+        || (choixQualite.moyen.taille > 0.9*choixQualite.max.taille && choixQualite.moyen.taille < 1.1*choixQualite.max.taille)) {
+        delete choixQualite.moyen;
+      }
+      if (choixQualite.max.taille < 1.2*choixQualite.min.taille) {
+        delete choixQualite.max;
+      }
+      console.log(choixQualite);
+    };
   }]);
 fruitsControllers.controller('FilmsListCtrl', ['$scope', '$rootScope', 'Film',
   function($scope, $rootScope, Film) {
