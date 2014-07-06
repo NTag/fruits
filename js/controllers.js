@@ -144,28 +144,49 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
 
     $scope.dlFolder = function() {
       if (window.confirm("Les " + document.getElementsByClassName("dwfile").length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
-        alert("Le téléchargement va commencer, veuillez ne pas quitter la page pendant celui-ci.");
+        //alert("Le téléchargement va commencer, veuillez ne pas quitter la page pendant celui-ci.");
+
         var fileArray = $scope.dossier.fichiers;
+        // Suppression des dossiers
+        for (var i = fileArray.length - 1; i >= 0; i--) {
+          if (fileArray[i].is_dossier) {
+            fileArray.splice(i, 1);
+          }
+        }
+        $rootScope.dlfiles.concat(fileArray);
+
         var i = 0;
-        imgFtpState = -1;
-        var serveur = document.getElementsByClassName("dwfile")[i].dataset.serveur;
-        document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+        var ourid = srandom();
+        imgFtpState[ourid] = -1;
+        $rootScope.imgFtpStates.push(ourid);
+        var serveur = document.getElementsById("dlfi" + fileArray[i].id).dataset.serveur;
+        document.getElementById('imgftp' + ourid).innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState." + ourid + " += 1' onerror='imgFtpState." + ourid + " -= 1' />";
         var interval = setInterval(function() {
-          if (i < document.getElementsByClassName("dwfile").length) {
-            serveur = document.getElementsByClassName("dwfile")[i].dataset.serveur;
-            if (imgFtpState == 1) {
+          if (i < fileArray.length) {
+            serveur = document.getElementsById("dlfi" + fileArray[i].id).dataset.serveur;
+            if (imgFtpState[ourid] >= 2) {
               var clickEvent = document.createEvent("MouseEvent");
               clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
-              document.getElementsByClassName("dwfile")[i].dispatchEvent(clickEvent);
+              document.getElementsById("dlfi" + fileArray[i].id).dispatchEvent(clickEvent);
               i++;
-              imgFtpState = -1;
-              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
-            } else if (imgFtpState == 0) {
-              imgFtpState = -1;
-              document.getElementById('imgftp').innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState = 1' onerror='imgFtpState = 0' />";
+              for (var j = 0; j < $rootScope.dlfiles.length; j++) {
+                if ($rootScope.dlfiles[j].id == fileArray[i].id) {
+                  $rootScope.dlfiles.splice(j, 1);
+                  break;
+                }
+              }
+              imgFtpState[ourid] = -1;
+            } else if (imgFtpState[ourid] <= -1) {
+              if (imgFtpState[ourid] <= -2) {
+                imgFtpState[ourid] = -1;
+              }
+            }
+            if (imgFtpState != 0) {
+              document.getElementById('imgftp' + ourid).innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState." + ourid + " += 1' onerror='imgFtpState." + ourid + " -= 1' />";
             }
           } else {
-              alert("Vous pouvez désormais quitter cette page. Le téléchargement est presque terminé et peut se poursuivre même si vous quitter la page.");
+              //alert("Vous pouvez désormais quitter cette page. Le téléchargement est presque terminé et peut se poursuivre même si vous quittez la page.");
+              $rootScope.imgFtpStates.splice($rootScope.imgFtpStates.indexOf(ourid), 1);
               clearInterval(interval);
           }
         },

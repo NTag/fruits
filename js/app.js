@@ -93,6 +93,8 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
       "mid": -1,
       "lecteur": document.getElementById('lecteurm')
     };
+    $rootScope.dlfiles = [];
+    $rootScope.imgFtpStates = [];
 });
 
 function fzero(n) {
@@ -102,7 +104,7 @@ function fzero(n) {
     return n;
   }
 }
-var imgFtpState = -1;
+var imgFtpState = {};
 function srandom()
 {
     var text = "";

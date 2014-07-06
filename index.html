@@ -75,6 +75,14 @@
   
   <div id="body" ng-view></div>
   <audio src='' id='lecteurm' controls="controls" autoplay="autoplay"></audio>
+  <div id="dlf">
+    <li ng-repeat="file in dlfiles">
+      <a href="ftp://{{ (fichier.serveur == 'thunder' && fichier.seuil) && 'thunder2' || fichier.serveur }}{{ fichier.chemin_complet }}" download="{{ fichier.nom }}" data-serveur="{{ (fichier.serveur == 'thunder' && fichier.seuil) && 'thunder2' || fichier.serveur }}" ng-click="clickf(fichier.id)" id="dlfi{{ fichier.id }}">Fichier {{ fichier.id }}</a>
+    </li>
+    <li ng-repeat="img in imgFtpStates">
+      <div id="imgftp{{ img }}"></div>
+    </li>
+  </div>
   <script src="js/foundation.min.js"></script>
   <script>
 	$(document).foundation();
