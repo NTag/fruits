@@ -149,11 +149,11 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
         var fileArray = $scope.dossier.fichiers;
         // Suppression des dossiers
         for (var i = fileArray.length - 1; i >= 0; i--) {
-          if (fileArray[i].is_dossier) {
+          if (fileArray[i].is_dossier === true) {
             fileArray.splice(i, 1);
           }
         }
-        $rootScope.dlfiles.concat(fileArray);
+        $rootScope.dlfiles = $rootScope.dlfiles.concat(fileArray);
 
         var i = 0;
         var ourid = srandom();
