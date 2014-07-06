@@ -91,7 +91,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
           nb_clics: 0,
           id: -1
         };
-        for (var j = 0; j < episodes[i].ep; j++) {
+        for (var j = 0; j < episodes[i].ep.length; j++) {
           if (episodes[i].ep[j].taille > 1000 && (episodes[i].ep[j].taille < (0.9*episodes[i].min.taille)
             || (episodes[i].ep[j].taille < (1.1*episodes[i].min.taille) && episodes[i].ep[j].nb_clics > episodes[i].min.nb_clics))) {
             episodes[i].min = {
@@ -123,6 +123,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
         choixQualite.most.taille += episodes[i].most.taille;
         choixQualite.most.nb_clics += episodes[i].most.nb_clics
       }
+      console.log(episodes);
 
       // On cherche des fichiers moyens
       for (var i = 0; i < nbEp; i++) {
@@ -131,7 +132,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
           nb_clics: 0,
           id: -1
         };
-        for (var j = 0; j < episodes[i].ep; j++) {
+        for (var j = 0; j < episodes[i].ep.length; j++) {
           if (episodes[i].ep[j].taille > 1000
             && episodes[i].ep[j].taille > (1.9*episodes[i].min.taille)
             && episodes[i].ep[j].taille < (0.7*episodes[i].max.taille)

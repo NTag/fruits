@@ -118,11 +118,11 @@ $app->get('/series/saison/{id}', function($id) use ($app) {
 	    
 	    $episodest[$e['episode']][$type][] = array(
 		    'nom' => $e['nom'],
-		    'taille' => $e['taille'],
+		    'taille' => (int) $e['taille'],
 		    'fichier' => $e['fichier'],
 		    'chemin_complet' => $e['chemin_complet'],
 		    'serveur' => $e['serveur'],
-		    'nb_clics' => $e['nb_clics'],
+		    'nb_clics' => (int) $e['nb_clics'],
 		    'parent' => $e['parent'],
 		    );
     }
