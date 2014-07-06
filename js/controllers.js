@@ -159,22 +159,24 @@ fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routePara
         var ourid = srandom();
         imgFtpState[ourid] = -1;
         $rootScope.imgFtpStates.push(ourid);
+        /*
         var serveur = document.getElementById("dlfi" + fileArray[i].id).dataset.serveur;
         document.getElementById('imgftp' + ourid).innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState." + ourid + " += 1' onerror='imgFtpState." + ourid + " -= 1' />";
+        */
         var interval = setInterval(function() {
           if (i < fileArray.length) {
-            serveur = document.getElementById("dlfi" + fileArray[i].id).dataset.serveur;
+            var serveur = document.getElementById("dlfi" + fileArray[i].id).dataset.serveur;
             if (imgFtpState[ourid] >= 2) {
               var clickEvent = document.createEvent("MouseEvent");
               clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
               document.getElementById("dlfi" + fileArray[i].id).dispatchEvent(clickEvent);
-              i++;
               for (var j = 0; j < $rootScope.dlfiles.length; j++) {
                 if ($rootScope.dlfiles[j].id == fileArray[i].id) {
                   $rootScope.dlfiles.splice(j, 1);
                   break;
                 }
               }
+              i++;
               imgFtpState[ourid] = -1;
             } else if (imgFtpState[ourid] <= -1) {
               if (imgFtpState[ourid] <= -2) {
