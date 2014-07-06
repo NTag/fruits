@@ -95,6 +95,52 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
     };
     $rootScope.dlfiles = [];
     $rootScope.imgFtpStates = [];
+    $rootScope.dlFolder = function(fichiers) {
+      var fileArray = fichiers;
+      // Suppression des dossiers
+      for (var i = fileArray.length - 1; i >= 0; i--) {
+        if (fileArray[i].is_dossier == true) {
+          fileArray.splice(i, 1);
+        }
+      }
+      if (window.confirm("Les " + fileArray.length + " fichiers vont être téléchargés dans votre dossier de téléchargement habituel. C'est bien ce que vous voulez ?")) {
+        $rootScope.dlfiles = $rootScope.dlfiles.concat(fileArray);
+
+        var i = 0;
+        var ourid = srandom();
+        imgFtpState[ourid] = -1;
+        $rootScope.imgFtpStates.push(ourid);
+        var interval = setInterval(function() {
+          if (i < fileArray.length) {
+            var serveur = document.getElementById("dlfi" + fileArray[i].id).dataset.serveur;
+            if (imgFtpState[ourid] >= 2) {
+              var clickEvent = document.createEvent("MouseEvent");
+              clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+              document.getElementById("dlfi" + fileArray[i].id).dispatchEvent(clickEvent);
+              for (var j = 0; j < $rootScope.dlfiles.length; j++) {
+                if ($rootScope.dlfiles[j].id == fileArray[i].id) {
+                  $rootScope.dlfiles.splice(j, 1);
+                  break;
+                }
+              }
+              i++;
+              imgFtpState[ourid] = -1;
+            } else if (imgFtpState[ourid] <= -1) {
+              if (imgFtpState[ourid] <= -2) {
+                imgFtpState[ourid] = -1;
+              }
+            }
+            if (imgFtpState != 0) {
+              document.getElementById('imgftp' + ourid).innerHTML = "<img src='ftp://anonymous:anonymous@" + serveur + checkimages[serveur] + "?k=" + srandom() + "' onload='imgFtpState." + ourid + " += 1' onerror='imgFtpState." + ourid + " -= 1' />";
+            }
+          } else {
+              $rootScope.imgFtpStates.splice($rootScope.imgFtpStates.indexOf(ourid), 1);
+              clearInterval(interval);
+          }
+        },
+        1400);
+      }
+    };
 });
 
 function fzero(n) {
