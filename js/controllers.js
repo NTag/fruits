@@ -108,7 +108,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
           id: -1
         };
         for (var j = 0; j < episodes[i].ep.length; j++) {
-          if (episodes[i].ep[j].taille > 1000 && (episodes[i].ep[j].taille < (0.9*episodes[i].min.taille)
+          if (episodes[i].ep[j].taille > 10000 && (episodes[i].ep[j].taille < (0.9*episodes[i].min.taille)
             || (episodes[i].ep[j].taille < (1.1*episodes[i].min.taille) && episodes[i].ep[j].nb_clics > episodes[i].min.nb_clics))) {
             episodes[i].min = {
               taille: episodes[i].ep[j].taille,
@@ -151,7 +151,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
           id: -1
         };
         for (var j = 0; j < episodes[i].ep.length; j++) {
-          if (episodes[i].ep[j].taille > 1000
+          if (episodes[i].ep[j].taille > 10000
             && episodes[i].ep[j].taille > (1.5*episodes[i].min.taille)
             && episodes[i].ep[j].taille < (0.8*episodes[i].max.taille)
             && episodes[i].ep[j].nb_clics > episodes[i].moyen.nb_clics) {
