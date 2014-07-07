@@ -176,6 +176,12 @@ select.petit {
     padding: 2px;
     font-size: 0.6em;
 }
-.f-dropdown.content {
+.f-dropdown {
     background-color: rgb(23, 24, 27);
+}
+.f-dropdown li:hover, .f-dropdown li:focus {
+    background-color: black;
+}
+.f-dropdown li a {
+    color: #2ba6cb;
 }

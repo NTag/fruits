@@ -97,6 +97,7 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
     $rootScope.dlfiles = [];
     $rootScope.imgFtpStates = [];
     $rootScope.downloads = {};
+    $rootScope.nbDownloads = 0;
     $rootScope.dlFolder = function(fichiers, nom) {
       var fileArray = fichiers;
       // Suppression des dossiers
@@ -117,6 +118,7 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
           nbfiles: fileArray.length,
           nom: nom
         };
+        $rootScope.nbDownloads++;
         var interval = setInterval(function() {
           if (i < fileArray.length && $rootScope.downloads[ourid].run) {
             var serveur = document.getElementById("dlfi" + fileArray[i].id).dataset.serveur;
@@ -144,6 +146,7 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
           } else {
               $rootScope.imgFtpStates.splice($rootScope.imgFtpStates.indexOf(ourid), 1);
               delete $rootScope.downloads[ourid];
+              $rootScope.nbDownloads--;
               clearInterval(interval);
           }
         },
