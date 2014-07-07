@@ -47,9 +47,10 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
 	    	$scope.fepf = false;
 	    	$scope.epn = -1;
     	} else {
-			$scope.epn = episode;
-			$scope.fepf = true;
-		}
+  			$scope.epn = episode;
+  			$scope.fepf = true;
+		  }
+      $scope.choixQualite = {};
     };
 
     // Retourne des infos concernant les choix possibles
@@ -61,22 +62,26 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
         most: {
           taille: 0,
           nb_clics: 0,
-          nom: "Défaut"
+          nom: "Défaut",
+          ep: []
         },
         min: {
           taille: 0,
           nb_clics: 0,
-          nom: "Basse"
+          nom: "Basse",
+          ep: []
         },
         moyen: {
           taille: 0,
           nb_clics: 0,
-          nom: "Moyenne"
+          nom: "Moyenne",
+          ep: []
         },
         max: {
           taille: 0,
           nb_clics: 0,
-          nom: "HD"
+          nom: "HD",
+          ep: []
         }
       }
       for (var i = 0; i < nbEp; i++) {
@@ -119,6 +124,9 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
               id: j
             };
           }
+          choixQualite.min.ep.push(episodes[i].ep[episodes[i].min.id]);
+          choixQualite.max.ep.push(episodes[i].ep[episodes[i].max.id]);
+          choixQualite.most.ep.push(episodes[i].ep[episodes[i].most.id]);
         }
         choixQualite.min.taille += episodes[i].min.taille;
         choixQualite.min.nb_clics += episodes[i].min.nb_clics;
@@ -147,6 +155,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
               id: j
             };
           }
+          choixQualite.moyen.ep.push(episodes[i].ep[episodes[i].moyen.id]);
         }
         if (episodes[i].moyen.id == -1) {
           episodes[i].moyen.taille = episodes[i].most.taille;
