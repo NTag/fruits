@@ -72,7 +72,7 @@
     </div>
   </div>
   <ul id="dropdl" class="medium f-dropdown" data-dropdown-content>
-    <li ng-repeat="dl in downloads"><a ng-click="dl.run = false"><strong>[Annuler]</strong> {{ dl.nom }} ({{ dl.nbfiles }} fichier{{ dl.nbfiles | affs }} restant{{ dl.nbfiles | affs }})</a></li>
+    <li ng-repeat="dl in downloads" ng-click="dl.run = false"><a ng-click="dl.run = false"><strong>[Annuler]</strong> {{ dl.nom }} ({{ dl.nbfiles }} fichier{{ dl.nbfiles | affs }} restant{{ dl.nbfiles | affs }})</a></li>
   </ul>
   <div class="barred"></div>
 </div>
