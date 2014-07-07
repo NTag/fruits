@@ -244,7 +244,11 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
     };
     $scope.dlSaison = function() {
       $scope.dlLance = true;
-      $rootScope.dlFolder($scope.choixQualite[$scope.qualiteChoisie].ep.concat($scope.choixQualite[$scope.qualiteChoisie].sub[$scope.langueChoisie]), $scope.serie.nom + " S" + fzero($scope.nsaison));
+      if ($scope.qualiteChoisie != 'none') {
+        $rootScope.dlFolder($scope.choixQualite[$scope.qualiteChoisie].ep.concat($scope.choixQualite[$scope.qualiteChoisie].sub[$scope.langueChoisie]), $scope.serie.nom + " S" + fzero($scope.nsaison));
+      } else {
+        $rootScope.dlFolder($scope.choixQualite[$scope.qualiteChoisie].ep), $scope.serie.nom + " S" + fzero($scope.nsaison));
+      }
     }
   }]);
 fruitsControllers.controller('FilmsListCtrl', ['$scope', '$rootScope', 'Film',
