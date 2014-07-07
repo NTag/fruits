@@ -133,7 +133,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
       for (var i = 0; i < nbEp; i++) {
         episodes[i].moyen = {
           taille: 0,
-          nb_clics: 0,
+          nb_clics: -1,
           id: -1
         };
         for (var j = 0; j < episodes[i].ep.length; j++) {

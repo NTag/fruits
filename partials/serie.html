@@ -23,7 +23,7 @@
 	</div>
 	<div class="small-12 medium-9 large-4 columns">
 		<div ng-show="fep">
-		<h3>Épisodes <a ng-click="preDlSaison(episodes)">.</a> <select ng-hide="!choixQualite"><option ng-repeat="qualite in choixQualite">{{ qualite.nom }} ({{ qualite.taille | humanSize }}, {{ qualite.nb_clics }})</option></select></h3>
+		<h3>Épisodes <a ng-click="preDlSaison(episodes)">.</a> <select ng-hide="!choixQualite" class="petit"><option ng-repeat="qualite in choixQualite">{{ qualite.nom }} ({{ qualite.taille | humanSize }}, {{ qualite.nb_clics }} clics)</option></select></h3>
 		<table>
 			<tbody>
 				<tr ng-repeat="ep in episodes" ng-class="{calt: $even && epn != ep.episode, hover: epn == ep.episode}" ng-click="affepf(ep.episode, ep.ep, ep.sub)" class="secondc">

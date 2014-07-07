@@ -179,3 +179,7 @@ select:not(:checked) {
      background-image: none;
   }
 }
+select.petit {
+    padding: 2px;
+    font-size: 0.6em;
+}
