@@ -114,7 +114,7 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
         var interval = setInterval(function() {
           if (i < fileArray.length) {
             var serveur = document.getElementById("dlfi" + fileArray[i].id).dataset.serveur;
-            if (imgFtpState[ourid] >= 2) {
+            if (serveur == 'esco' || imgFtpState[ourid] >= 3) {
               var clickEvent = document.createEvent("MouseEvent");
               clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
               document.getElementById("dlfi" + fileArray[i].id).dispatchEvent(clickEvent);
