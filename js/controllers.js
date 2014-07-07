@@ -50,7 +50,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
   			$scope.epn = episode;
   			$scope.fepf = true;
 		  }
-      $scope.choixQualite = {};
+      delete $scope.choixQualite;
     };
 
     // Retourne des infos concernant les choix possibles
