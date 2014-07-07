@@ -64,25 +64,29 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
           taille: 0,
           nb_clics: 0,
           nom: "Défaut",
-          ep: []
+          ep: [],
+          sub: {}
         },
         min: {
           taille: 0,
           nb_clics: 0,
           nom: "Basse",
-          ep: []
+          ep: [],
+          sub: {}
         },
         moyen: {
           taille: 0,
           nb_clics: 0,
           nom: "Moyenne",
-          ep: []
+          ep: [],
+          sub: {}
         },
         max: {
           taille: 0,
           nb_clics: 0,
           nom: "HD",
-          ep: []
+          ep: [],
+          sub: {}
         }
       }
       for (var i = 0; i < nbEp; i++) {
@@ -136,7 +140,6 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
         choixQualite.most.taille += episodes[i].most.taille;
         choixQualite.most.nb_clics += episodes[i].most.nb_clics
       }
-      console.log(episodes);
 
       // On cherche des fichiers moyens
       for (var i = 0; i < nbEp; i++) {
@@ -180,8 +183,57 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
       if (choixQualite.max.taille < 1.2*choixQualite.min.taille) {
         delete choixQualite.max;
       }
-      $scope.choixQualite = choixQualite;
+
+      // Maintenant on s'occupe des sous-titres
+      // 1 : on regarde les langues disponibles
+      //     on ne gère que fr et en pour le moment
+      var languesDispo = [];
+      for (var i = 0; i < nbEp && languesDispo.length <= 2; i++) {
+        for (var j = 0; j < episodes[i].sub.length && languesDispo.length <= 2; j++) {
+          if (languesDispo.indexOf("fr") == -1 && /\.fr\./.test(episodes[i].sub[j].nom)) {
+            languesDispo.push("fr");
+          }
+          if (languesDispo.indexOf("en") == -1 && /\.en\./.test(episodes[i].sub[j].nom)) {
+            languesDispo.push("en");
+          }
+        }
+      }
+      for (var l = 0; l < languesDispo.length; l++) {
+        var langue = languesDispo[l];
+        choixQualite[key].sub[langue] = [];
+        var regexSub = new RegExp("\." + langue + "\.[a-z0-9]+$","gi");
+        var regexLangue = new RegExp("\." + langue + "\.");
+        for (var key in choixQualite) {
+          if (!choixQualite.hasOwnProperty(key)) {
+            continue;
+          }
+          var nbEpQualite = choixQualite[key].ep.length;
+          for (var i = 0; i < nbEpQualite; i++) {
+            var max = {
+              id: -1,
+              nb_clics: -1
+            };
+            for (var j = 0; j < episodes[i].sub.length; j++) {
+              if (choixQualite[key].ep[i].nom.replace(/\.[a-z0-9]+$/gi, "") == episodes[i].sub[j].nom.replace(regexSub, "")) {
+                choixQualite[key].sub[langue].push(episodes[i].sub[j]);
+                max.id = -1;
+                break;
+              }
+              if (regexLangue.test(choixQualite[key].ep[i].nom) && choixQualite[key].ep[i].nb_clics > max.nb_clics) {
+                max.id = j;
+                max.nb_clics = choixQualite[key].ep[i].nb_clics;
+              }
+            }
+          }
+          if (max.id >= 0) {
+            choixQualite[key].sub[langue].push(episodes[i].sub[max.id]);
+          }
+        }
+      }
       console.log(choixQualite);
+      console.log(languesDispo);
+      $scope.choixQualite = choixQualite;
+      $scope.choixLangues = languesDispo;
     };
   }]);
 fruitsControllers.controller('FilmsListCtrl', ['$scope', '$rootScope', 'Film',
@@ -262,11 +314,10 @@ fruitsControllers.controller('ServeursCtrl', ['$scope', '$rootScope', 'Serveur',
     
     $scope.serveurs = Serveur.query();
   }]);
-fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routeParams', 'Dossier', 'browser',
-  function($scope, $rootScope, $routeParams, Dossier, browser) {
+fruitsControllers.controller('DossierCtrl', ['$scope', '$rootScope', '$routeParams', 'Dossier',
+  function($scope, $rootScope, $routeParams, Dossier) {
     $rootScope.page = 'serveurs';
     $rootScope.rechercher = '';
-    $scope.bDlFolder = browser() == 'chrome';
     
     $scope.dossier = Dossier.get({id: $routeParams.id}, function() {
       $scope.dossier.fichiers.forEach(function(t) {

@@ -69,7 +69,7 @@ fruitsApp.config(['$routeProvider',
       });
   }]);
 
-fruitsApp.run(function($rootScope, $location, Dossier) {
+fruitsApp.run(function($rootScope, $location, Dossier, browser) {
     $rootScope.search = function() {
         $location.path('/search/' + $rootScope.rechercher);
     }
@@ -88,6 +88,7 @@ fruitsApp.run(function($rootScope, $location, Dossier) {
     $rootScope.seuil = function() {
 	    return Math.random() > 0.4;
     };
+    $rootScope.bDlFolder = browser() == 'chrome';
     $rootScope.player = {
       "play": false,
       "mid": -1,
