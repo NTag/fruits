@@ -63,7 +63,6 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
         alert("À cause de restrictions, le téléchargement d'une saison ne fonctionne que sous Google Chrome. Vous pouvez sinon télécharger FileZilla : ce programme vous permet de vous connecter aux serveurs ftp et de télécharger d'un coup autant de dossiers que souhaité.");
         return 0;
       }
-      $scope.dlLance = true;
       var nbEp = episodes.length;
 
       // On trouve les plus gros et plus petits fichiers
@@ -244,6 +243,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
       $scope.choixLangues = languesDispo;
     };
     $scope.dlSaison = function() {
+      $scope.dlLance = true;
       $rootScope.dlFolder($scope.choixQualite[$scope.qualiteChoisie].ep.concat($scope.choixQualite[$scope.qualiteChoisie].sub[$scope.langueChoisie]), $scope.serie.nom + " S" + fzero($scope.nsaison));
     }
   }]);
