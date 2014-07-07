@@ -183,7 +183,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
         || (choixQualite.most.taille > 0.9*choixQualite.moyen.taille && choixQualite.most.taille < 1.1*choixQualite.moyen.taille)) {
         delete choixQualite.most;
       }
-      if ((choixQualite.moyen.taille > 0.9*choixQualite.min.taille && choixQualite.moyen.taille < 1.2*choixQualite.min.taille)
+      if ((choixQualite.moyen.taille < 1.2*choixQualite.min.taille)
         || (choixQualite.moyen.taille > 0.9*choixQualite.max.taille && choixQualite.moyen.taille < 1.1*choixQualite.max.taille)) {
         delete choixQualite.moyen;
       }
