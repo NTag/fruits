@@ -40,6 +40,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
   			$scope.epn = -1;
         delete $scope.choixQualite;
         $scope.qualiteChoisie = "none";
+        $scope.langueChoisie = "none";
   		}
     };
     $scope.affepf = function(episode, ep, sub) {
@@ -200,13 +201,13 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
       }
       for (var l = 0; l < languesDispo.length; l++) {
         var langue = languesDispo[l];
-        choixQualite[key].sub[langue] = [];
         var regexSub = new RegExp("\." + langue + "\.[a-z0-9]+$","gi");
         var regexLangue = new RegExp("\." + langue + "\.");
         for (var key in choixQualite) {
           if (!choixQualite.hasOwnProperty(key)) {
             continue;
           }
+          choixQualite[key].sub[langue] = [];
           var nbEpQualite = choixQualite[key].ep.length;
           for (var i = 0; i < nbEpQualite; i++) {
             var max = {
@@ -219,14 +220,14 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
                 max.id = -1;
                 break;
               }
-              if (regexLangue.test(choixQualite[key].ep[i].nom) && choixQualite[key].ep[i].nb_clics > max.nb_clics) {
+              if (regexLangue.test(episodes[i].sub[j].nom) && episodes[i].sub[j].nb_clics > max.nb_clics) {
                 max.id = j;
-                max.nb_clics = choixQualite[key].ep[i].nb_clics;
+                max.nb_clics = episodes[i].sub[j].nb_clics;
               }
             }
-          }
-          if (max.id >= 0) {
-            choixQualite[key].sub[langue].push(episodes[i].sub[max.id]);
+            if (max.id >= 0) {
+              choixQualite[key].sub[langue].push(episodes[i].sub[max.id]);
+            }
           }
         }
       }
@@ -235,6 +236,9 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
       $scope.choixQualite = choixQualite;
       $scope.choixLangues = languesDispo;
     };
+    $scope.dlSaison = function() {
+      $rootScope.dlFolder($scope.choixQualite[$scope.qualiteChoisie].ep.concat($scope.choixQualite[$scope.qualiteChoisie].sub[$scope.langueChoisie]));
+    }
   }]);
 fruitsControllers.controller('FilmsListCtrl', ['$scope', '$rootScope', 'Film',
   function($scope, $rootScope, Film) {

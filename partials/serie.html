@@ -23,7 +23,7 @@
 	</div>
 	<div class="small-12 medium-9 large-4 columns">
 		<div ng-show="fep">
-		<h3>Épisodes <a ng-click="preDlSaison(episodes)" ng-show="!choixQualite">.</a> <select ng-hide="!choixQualite" class="petit" ng-model="qualiteChoisie" ng-change="dlFolder(choixQualite[qualiteChoisie].ep)"><option value="none">Qualité : </option><option ng-repeat="(key, qualite) in choixQualite | orderBy:'nb_clics':true" ng-value="key">{{ qualite.nom }} ({{ qualite.taille | humanSize }}, {{ qualite.nb_clics }} clics)</option></select></h3>
+		<h3>Épisodes <a ng-click="preDlSaison(episodes)" ng-show="!choixQualite">.</a> <select ng-hide="!choixQualite" class="petit" ng-model="langueChoisie"><option value="none">Sous-Titres :</option><option ng-repeat="langue in languesDispo" ng-value="langue">{{ langue }}</option></select> <select ng-hide="!choixQualite" class="petit" ng-model="qualiteChoisie" ng-change="dlSaison()"><option value="none">Qualité : </option><option ng-repeat="(key, qualite) in choixQualite | orderBy:'nb_clics':true" ng-value="key">{{ qualite.nom }} ({{ qualite.taille | humanSize }}, {{ qualite.nb_clics }} clics)</option></select></h3>
 		<table>
 			<tbody>
 				<tr ng-repeat="ep in episodes" ng-class="{calt: $even && epn != ep.episode, hover: epn == ep.episode}" ng-click="affepf(ep.episode, ep.ep, ep.sub)" class="secondc">
