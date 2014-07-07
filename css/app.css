@@ -49,6 +49,12 @@ body {
 	padding-right: 20px;
 	margin-bottom: -10px;
 }
+#bdl {
+    font-size: 1.5em;
+    float: left;
+    display: inline-block;
+    margin-right: 10px;
+}
 #body {
     clear: both;
     padding: 20px;
