@@ -147,11 +147,11 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
               id: j
             };
           }
-          if (episodes[i].moyen.id == -1) {
-            episodes[i].moyen.taille = episodes[i].most.taille;
-            episodes[i].moyen.nb_clics = episodes[i].most.nb_clics;
-            episodes[i].moyen.id = episodes[i].most.id;
-          }
+        }
+        if (episodes[i].moyen.id == -1) {
+          episodes[i].moyen.taille = episodes[i].most.taille;
+          episodes[i].moyen.nb_clics = episodes[i].most.nb_clics;
+          episodes[i].moyen.id = episodes[i].most.id;
         }
         choixQualite.moyen.taille += episodes[i].moyen.taille;
         choixQualite.moyen.nb_clics += episodes[i].moyen.nb_clics
