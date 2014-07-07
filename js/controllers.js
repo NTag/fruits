@@ -31,14 +31,16 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
     $scope.affep = function(saison, numero) {
     	if ($scope.nsaison == numero) {
 	    	$scope.fep = false;
-			$scope.nsaison = -1;
-    	} else {
-			$scope.episodes = Saison.query({id: saison});
-			$scope.fep = true;
-			$scope.fepf = false;
-			$scope.nsaison = numero;
-			$scope.epn = -1;
-		}
+  			$scope.nsaison = -1;
+      } else {
+  			$scope.episodes = Saison.query({id: saison});
+  			$scope.fep = true;
+  			$scope.fepf = false;
+  			$scope.nsaison = numero;
+  			$scope.epn = -1;
+        delete $scope.choixQualite;
+        $scope.qualiteChoisie = "none";
+  		}
     };
     $scope.affepf = function(episode, ep, sub) {
     	$scope.epf = ep;
@@ -50,8 +52,6 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
   			$scope.epn = episode;
   			$scope.fepf = true;
 		  }
-      delete $scope.choixQualite;
-      $scope.qualiteChoisie = "none";
     };
 
     // Retourne des infos concernant les choix possibles
