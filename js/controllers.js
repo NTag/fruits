@@ -51,6 +51,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
   			$scope.fepf = true;
 		  }
       delete $scope.choixQualite;
+      $scope.qualiteChoisie = "none";
     };
 
     // Retourne des infos concernant les choix possibles
@@ -124,10 +125,10 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
               id: j
             };
           }
-          choixQualite.min.ep.push(episodes[i].ep[episodes[i].min.id]);
-          choixQualite.max.ep.push(episodes[i].ep[episodes[i].max.id]);
-          choixQualite.most.ep.push(episodes[i].ep[episodes[i].most.id]);
         }
+        choixQualite.min.ep.push(episodes[i].ep[episodes[i].min.id]);
+        choixQualite.max.ep.push(episodes[i].ep[episodes[i].max.id]);
+        choixQualite.most.ep.push(episodes[i].ep[episodes[i].most.id]);
         choixQualite.min.taille += episodes[i].min.taille;
         choixQualite.min.nb_clics += episodes[i].min.nb_clics;
         choixQualite.max.taille += episodes[i].max.taille;
@@ -155,13 +156,13 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
               id: j
             };
           }
-          choixQualite.moyen.ep.push(episodes[i].ep[episodes[i].moyen.id]);
         }
         if (episodes[i].moyen.id == -1) {
           episodes[i].moyen.taille = episodes[i].most.taille;
           episodes[i].moyen.nb_clics = episodes[i].most.nb_clics;
           episodes[i].moyen.id = episodes[i].most.id;
         }
+        choixQualite.moyen.ep.push(episodes[i].ep[episodes[i].moyen.id]);
         choixQualite.moyen.taille += episodes[i].moyen.taille;
         choixQualite.moyen.nb_clics += episodes[i].moyen.nb_clics
       }
