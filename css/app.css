@@ -176,7 +176,7 @@ select.petit {
     padding: 2px;
     font-size: 0.6em;
 }
-.f-dropdown {
+.f-dropdown, .f-dropdown.drop-left {
     background-color: rgb(23, 24, 27);
 }
 .f-dropdown li:hover, .f-dropdown li:focus {
