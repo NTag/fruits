@@ -51,7 +51,8 @@ body {
     width: 250px;
 }
 #bdl {
-    font-size: 1.5em;
+    font-size: 20px;
+    vertical-align: middle;
 }
 #body {
     clear: both;
@@ -174,4 +175,7 @@ select:not(:checked) {
 select.petit {
     padding: 2px;
     font-size: 0.6em;
+}
+.f-dropdown.content {
+    background-color: rgb(23, 24, 27);
 }

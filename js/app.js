@@ -96,7 +96,8 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
     };
     $rootScope.dlfiles = [];
     $rootScope.imgFtpStates = [];
-    $rootScope.dlFolder = function(fichiers) {
+    $rootScope.downloads = {};
+    $rootScope.dlFolder = function(fichiers, nom) {
       var fileArray = fichiers;
       // Suppression des dossiers
       for (var i = fileArray.length - 1; i >= 0; i--) {
@@ -111,8 +112,13 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
         var ourid = srandom();
         imgFtpState[ourid] = -1;
         $rootScope.imgFtpStates.push(ourid);
+        $rootScope.downloads[ourid] = {
+          run: true,
+          nbfiles: fileArray.length,
+          nom: nom
+        };
         var interval = setInterval(function() {
-          if (i < fileArray.length) {
+          if (i < fileArray.length && $rootScope.downloads[ourid].run) {
             var serveur = document.getElementById("dlfi" + fileArray[i].id).dataset.serveur;
             if (serveur == 'esco' || imgFtpState[ourid] >= 3) {
               var clickEvent = document.createEvent("MouseEvent");
@@ -125,6 +131,7 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
                 }
               }
               i++;
+              $rootScope.downloads[ourid].nbfiles--;
               imgFtpState[ourid] = -1;
             } else if (imgFtpState[ourid] <= -1) {
               if (imgFtpState[ourid] <= -2) {
@@ -136,6 +143,7 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
             }
           } else {
               $rootScope.imgFtpStates.splice($rootScope.imgFtpStates.indexOf(ourid), 1);
+              delete $rootScope.downloads[ourid];
               clearInterval(interval);
           }
         },

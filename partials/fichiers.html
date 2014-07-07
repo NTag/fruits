@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="small-12 medium-10 medium-centered large-8 columns">
-		<h4><a title="Ouvrir le dossier" href="ftp://{{ dossier.serveur }}{{ dossier.chemin_complet }}">{{ dossier.serveur }}{{ dossier.chemin_complet }}</a> <a title="Télécharger tout le dossier" ng-click="dlFolder(dossier.fichiers)" ng-show="bDlFolder"><span class="fi-data-transfer-download"></span></a></h4>
+		<h4><a title="Ouvrir le dossier" href="ftp://{{ dossier.serveur }}{{ dossier.chemin_complet }}">{{ dossier.serveur }}{{ dossier.chemin_complet }}</a> <a title="Télécharger tout le dossier" ng-click="dlFolder(dossier.fichiers, 'Dossier ' + dossier.nom)" ng-show="bDlFolder"><span class="fi-data-transfer-download"></span></a></h4>
 		<a ng-show="dossier.parent > 0" title="Retourner au dossier parent" href="#/dossier/{{ dossier.parent }}"><span class="fi-chevron-left"></span> Dossier parent</a><a ng-hide="dossier.parent > 0 || page == 'new'" title="Retour à la liste des serveurs" href="#/serveurs"><span class="fi-chevron-left"></span> Liste des serveurs</a><br /><br />
 		<table>
 			<tbody>
