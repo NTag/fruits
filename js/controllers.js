@@ -58,21 +58,25 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
 
       // On trouve les plus gros et plus petits fichiers
       var choixQualite = {
-        min: {
-          taille: 0,
-          nb_clics: 0
-        },
-        max: {
-          taille: 0,
-          nb_clics: 0
-        },
         most: {
           taille: 0,
-          nb_clics: 0
+          nb_clics: 0,
+          nom: "Défaut"
+        },
+        min: {
+          taille: 0,
+          nb_clics: 0,
+          nom: "Basse"
         },
         moyen: {
           taille: 0,
-          nb_clics: 0
+          nb_clics: 0,
+          nom: "Moyenne"
+        },
+        max: {
+          taille: 0,
+          nb_clics: 0,
+          nom: "HD"
         }
       }
       for (var i = 0; i < nbEp; i++) {
@@ -134,14 +138,19 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
         };
         for (var j = 0; j < episodes[i].ep.length; j++) {
           if (episodes[i].ep[j].taille > 1000
-            && episodes[i].ep[j].taille > (1.9*episodes[i].min.taille)
-            && episodes[i].ep[j].taille < (0.7*episodes[i].max.taille)
+            && episodes[i].ep[j].taille > (1.5*episodes[i].min.taille)
+            && episodes[i].ep[j].taille < (0.8*episodes[i].max.taille)
             && episodes[i].ep[j].nb_clics > episodes[i].moyen.nb_clics) {
             episodes[i].moyen = {
               taille: episodes[i].ep[j].taille,
               nb_clics: episodes[i].ep[j].nb_clics,
               id: j
             };
+          }
+          if (episodes[i].moyen.id == -1) {
+            episodes[i].moyen.taille = episodes[i].most.taille;
+            episodes[i].moyen.nb_clics = episodes[i].most.nb_clics;
+            episodes[i].moyen.id = episodes[i].most.id;
           }
         }
         choixQualite.moyen.taille += episodes[i].moyen.taille;
@@ -161,6 +170,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
       if (choixQualite.max.taille < 1.2*choixQualite.min.taille) {
         delete choixQualite.max;
       }
+      $scope.choixQualite = choixQualite;
       console.log(choixQualite);
     };
   }]);
