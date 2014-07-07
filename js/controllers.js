@@ -39,6 +39,7 @@ fruitsControllers.controller('SerieCtrl', ['$scope', '$rootScope', 'Serie', 'Sai
   			$scope.nsaison = numero;
   			$scope.epn = -1;
         delete $scope.choixQualite;
+        delete $scope.choixLangues;
         $scope.qualiteChoisie = "none";
         $scope.langueChoisie = "none";
   		}
