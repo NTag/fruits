@@ -48,12 +48,13 @@ body {
 	float: right;
 	padding-right: 20px;
 	margin-bottom: -10px;
+    width: 250px;
 }
 #bdl {
     font-size: 1.5em;
     display: inline-block;
     margin-right: 10px;
-    width: 20%;
+    width: 15%;
 }
 #body {
     clear: both;
@@ -85,9 +86,6 @@ input[type=text]:focus {
 }
 #rechercher {
     width: 80%;
-    float: right;
-}
-.bsaison {
 }
 .numsaison {
 	position: relative;
