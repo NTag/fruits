@@ -12,3 +12,18 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'charset'   => 'utf8',
     ),
 ));
+
+// Proxy
+$aContext = array(
+    'http' => array(
+        'proxy' => 'tcp://129.104.247.2:8080',
+        'request_fulluri' => true,
+    ),
+    'https' => array(
+        'proxy' => 'tcp://129.104.247.2:8080',
+        'request_fulluri' => true,
+    ),
+);
+$cxContext = stream_context_create($aContext);
+
+$tmdbKey = '10693a5e1e693837a6c36153f260d8d3';
