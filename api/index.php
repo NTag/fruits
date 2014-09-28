@@ -283,6 +283,12 @@ $app->get('/checkimages', function() use ($app) {
     return $app->json($cor);
 });
 
+$app->get('/suggest/search/{q}', function($q) use ($app, $cxContext, $tmdbKey) {
+    $infos = json_decode(file_get_contents('https://api.themoviedb.org//search/multi/' . $q . '?api_key=' . $tmdbKey, false, $cxContext));
+    
+    return $app->json($infos);
+});
+
 // Admin
 $app->get('/admin/signaled', function() use ($app) {
     $fichiers = $app['db']->fetchAll("SELECT COUNT(*) AS nb,fichiers.nom, fichiers.serveur, fichiers.chemin_complet, films.tmdbid AS ftmdbid, films.titlefr, series.nom, sa.numero AS saison, se.episode AS episode, series.tmdbid AS stmdbid
