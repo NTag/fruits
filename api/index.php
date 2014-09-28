@@ -333,12 +333,21 @@ $app->get('/suggest/{type}/{tmdbid}', function($type, $tmdbid) use ($app, $cxCon
     }
 
     $infos = json_decode(file_get_contents('https://api.themoviedb.org/3/' . $type . '/' . $tmdbid . '?api_key=' . $tmdbKey . '&language=fr', false, $cxContext));
-    $app['db']->executeUpdate("INSERT INTO demandes VALUES(?,?,?,NOW())", array(
+    $app['db']->executeUpdate("INSERT INTO demandes VALUES(?,?,?,?,NOW())", array(
         $tmdbid,
+        $type,
         isset($infos->original_title) ? $infos->original_title : $infos->original_name,
         isset($infos->release_date) ? $infos->release_date : $infos->first_air_date));
     
     return $app->json(array('status' => 'ok'));
+});
+
+$app->get('/suggestions', function() use ($app) {
+    $demandes = $app['db']->fetchAll("SELECT tmdbid,title,tdate AS release_date,type,date AS demande_date
+        FROM demandes
+        ORDER BY date DESC");
+    
+    return $app->json($demandes);
 });
 
 // Admin

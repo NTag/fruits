@@ -360,6 +360,7 @@ fruitsControllers.controller('SuggestCtrl', ['$scope', '$rootScope', 'Suggest',
     $rootScope.page = 'serveurs';
     $rootScope.rechercher = '';
     $scope.searchSuggest = function () {
+      $scope.message = '';
       $scope.results = Suggest.get({q: $scope.rechercher});
     };
     $scope.askFor = function (result) {
