@@ -35,6 +35,11 @@ fruitsServices.factory('Artist', ['$resource',
   function($resource){
     return $resource('api/music/artists/:aid');
   }]);
+fruitsServices.factory('Suggest', ['$resource',
+  function($resource){
+    return $resource('api/suggest/search/:q', {},
+      {ask: {url:'api/suggest/:type/:tmdbid'}});
+  }]);
 
 fruitsApp.service('browser', ['$window', function($window) {
      return function() {

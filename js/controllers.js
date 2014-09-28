@@ -355,3 +355,17 @@ fruitsControllers.controller('NewCtrl', ['$scope', '$rootScope', 'Dossier',
     
     $scope.dossier = Dossier.new();
   }]);
+fruitsControllers.controller('SuggestCtrl', ['$scope', '$rootScope', 'Suggest',
+  function($scope, $rootScope, Suggest) {
+    $rootScope.page = 'serveurs';
+    $rootScope.rechercher = '';
+    $scope.searchSuggest = function () {
+      $scope.results = Suggest.get({q: $scope.rechercher});
+    };
+    $scope.askFor = function (result) {
+      Suggest.ask({type: result.media_type, tmdbid: result.id}, function () {
+        $scope.message = 'Ta demande a bien été soumise';
+        delete $scope.results;
+      });
+    };
+  }]);

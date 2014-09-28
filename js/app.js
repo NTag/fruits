@@ -56,6 +56,10 @@ fruitsApp.config(['$routeProvider',
         templateUrl: 'partials/fichiers.html',
         controller: 'NewCtrl'
       }).
+      when('/suggest', {
+        templateUrl: 'partials/suggest.html',
+        controller: 'SuggestCtrl'
+      }).
       when('/dossier/:id', {
         templateUrl: 'partials/fichiers.html',
         controller: 'DossierCtrl'
