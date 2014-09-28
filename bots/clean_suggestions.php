@@ -24,9 +24,8 @@ SELECT films.tmdbid
     HAVING COUNT(*)/COUNT(DISTINCT filmsf.fichier) < 5
     ORDER BY popularity DESC)");
 $reqSerie = $bdd->prepare("DELETE FROM demandes
-LEFT JOIN series
-ON series.tmdbid = demandes.tmdbid
-WHERE demandes.type = 'tv' AND series.tmdbid IS NOT NULL");
+WHERE demandes.tmdbid IN (SELECT series.tmdbid
+FROM series)");
 
 $reqFilm->execute();
 $reqFilm->closeCursor();
