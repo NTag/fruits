@@ -322,7 +322,7 @@ $app->get('/checkimages', function() use ($app) {
 });
 
 $app->get('/suggest/search/{q}', function($q) use ($app, $cxContext, $tmdbKey) {
-    $infos = json_decode(file_get_contents('https://api.themoviedb.org//search/multi/' . $q . '?api_key=' . $tmdbKey, false, $cxContext));
+    $infos = json_decode(file_get_contents('https://api.themoviedb.org/3/search/multi?query=' . urlencode($q) . '&api_key=' . $tmdbKey, false, $cxContext));
     
     return $app->json($infos);
 });
