@@ -17,7 +17,9 @@
 					<td class="text-center">{{ fichier.taille | humanSize }}</td>
 				</tr>
 				<tr ng-show="search.fichiers.length == 0">
-					<td colspan="4" class="text-center">Aucun fichier</td>
+					<td colspan="4" class="text-center">
+						Aucun fichier<br /><br />
+						Si vous trouvez qu'il manque une série ou un film, <a title="Demander le téléchargement d'un film ou d'une série" href="#/suggest">vous pouvez en faire la demande ici</a>.</td>
 				</tr>
 				<tr ng-show="searchEnCours">
 					<td colspan="4" class="text-center"><img src="images/load_big.gif" alt="Chargement" /></td>

@@ -1,7 +1,3 @@
-<div class="text-center" ng-hide="films.length != 1">
-Suite à un problème avec un switch de la DSI, les 3 ftp principaux sont inaccessibles. J'espère qu'ils vont vite rétablir ce problème.
-</div>
-
 <div id="list" infinite-scroll="loadMore()" infinite-scroll-distance="2">
 	<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-8">
 	    <li ng-repeat="film in films | filter:rechercher | orderBy:rtri:rsens() | limitTo:loadNb">
@@ -22,6 +18,7 @@ Suite à un problème avec un switch de la DSI, les 3 ftp principaux sont inacce
 <div ng-hide="films.length == 0">
 	<div class="text-center" ng-show="(films | filter:rechercher).length == 0">
 	<p><br /></p>
-	Appuyez sur Entrée pour rechercher dans tous les fichiers ;-)
+	Appuyez sur Entrée pour rechercher dans tous les fichiers ;-)<br /><br />
+	Si vous trouvez qu'il manque un film, <a title="Demander le téléchargement d'un film" href="#/suggest">vous pouvez le réclamer ici</a>.
 	</div>
 </div>
