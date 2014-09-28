@@ -16,7 +16,7 @@ $reqAddEpisode = $bdd->prepare("INSERT INTO series_episodes
 
 $reqAllFiles = $bdd->prepare("SELECT id, nom, chemin_complet
 	FROM fichiers
-	WHERE LOWER(chemin_complet) LIKE '%/serie%' AND supprime = 0 AND type <> 'dossier' AND date_depose > DATE_SUB(NOW(), INTERVAL 2 DAY) AND id NOT IN (SELECT fichier FROM series_episodes)");
+	WHERE LOWER(chemin_complet) LIKE '%/serie%' AND supprime = 0 AND type <> 'dossier' AND date_depose > DATE_SUB(NOW(), INTERVAL 2 DAY) AND id NOT IN (SELECT fichier FROM (SELECT fichier FROM series_episodes) AS rf)");
 $reqAllFiles->execute();
 $files = $reqAllFiles->fetchAll();
 $reqAllFiles->closeCursor();
@@ -61,7 +61,7 @@ foreach ($files as $f) {
 
 	exec('rm -rf tvnamer/files/*');
 	touch('tvnamer/files/' . $f['nom']);
-	$tvnamer = shell_exec('tvnamer -af ' . escapeshellarg('tvnamer/files/' . $f['nom']));
+	$tvnamer = shell_exec('/usr/local/bin/tvnamer -af ' . escapeshellarg('tvnamer/files/' . $f['nom']));
 	if (preg_match('!# Detected series:!', $tvnamer)) {
 		$nom = trim(preg_replace('!^.+# Detected series: (.+) \(season: ([0-9]+), episode: ([0-9]+)\).+$!isU', '$1', $tvnamer));
 		$nsaison = trim(preg_replace('!^.+# Detected series: (.+) \(season: ([0-9]+), episode: ([0-9]+)\).+$!isU', '$2', $tvnamer));

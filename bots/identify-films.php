@@ -35,10 +35,10 @@ foreach ($files as $f) {
     	continue;
 	}
 
-	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
+	$guessit = shell_exec('/usr/local/bin/guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
 	$guessit = str_replace('Volap\u00fck', 'VO/VF', $guessit);
 	$infosNom = json_decode(substr($guessit, strpos($guessit, '{')));
-	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['chemin_complet'])));
+	$guessit = shell_exec('/usr/local/bin/guessit -a ' . escapeshellarg(utf8_decode($f['chemin_complet'])));
 	$guessit = str_replace('Volap\u00fck', 'VO/VF', $guessit);
 	$infosChemin = json_decode(substr($guessit, strpos($guessit, '{')));
 

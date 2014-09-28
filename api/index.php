@@ -1,10 +1,17 @@
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 $app = new Silex\Application();
 $app['debug'] = true;
 
 require('config.php');
+
+$app->after(function (Request $request, Response $response) {
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+});
 
 $app->get('/films', function() use ($app) {
     $films = $app['db']->fetchAll("SELECT films.tmdbid, title, titlefr, titleen, titlefrslug, YEAR(release_date) AS date, production, popularity, release_date
@@ -27,12 +34,43 @@ $app->get('/films', function() use ($app) {
     return $app->json($films);
 });
 
+$app->get('/films/full', function() use ($app) {
+    $films = $app['db']->fetchAll("SELECT films.tmdbid, title, titlefr, titleen, titlefrslug, YEAR(release_date) AS date, production, popularity, release_date, overview, runtime, genres, vote
+    FROM films
+    LEFT JOIN filmsf
+    ON filmsf.tmdbid = films.tmdbid
+    LEFT JOIN fichiers
+    ON fichiers.id = filmsf.fichier
+    LEFT JOIN serveurs
+    ON serveurs.nom = fichiers.serveur
+    LEFT JOIN ierreurs
+    ON ierreurs.fichier = filmsf.fichier
+    WHERE fichiers.supprime = 0 AND serveurs.online=1 AND serveurs.supprime=0
+    GROUP BY films.tmdbid
+    HAVING COUNT(*)/COUNT(DISTINCT filmsf.fichier) < 5
+    ORDER BY popularity DESC");
+    foreach ($films as &$f) {
+            $f['popularity'] = (int) $f['popularity'];
+    }
+    return $app->json($films);
+});
+
 $app->get('/series', function() use ($app) {
     $series = $app['db']->fetchAll("SELECT id, nom, tmdbid, tfirstdate, tlastdate, tnbseasons, (SELECT COUNT(*) FROM series_saisons AS sa WHERE sa.serie = series.tmdbid) AS nbseasons, tpopularity AS popularity, nom AS title, tfirstdate AS release_date
     FROM series
     ORDER BY tpopularity DESC");
     foreach ($series as &$f) {
 	    $f['popularity'] = (int) $f['popularity'];
+    }
+    return $app->json($series);
+});
+
+$app->get('/series/full', function() use ($app) {
+    $series = $app['db']->fetchAll("SELECT id, nom, tmdbid, tfirstdate, tlastdate, tnbseasons, (SELECT COUNT(*) FROM series_saisons AS sa WHERE sa.serie = series.tmdbid) AS nbseasons, tpopularity AS popularity, nom AS title, tfirstdate AS release_date, tgenres, tin_production, tnetwork, torigin_country, toverview, tepisode_run_time, YEAR(tfirstdate) AS fyear, YEAR(tlastdate) AS lyear
+    FROM series
+    ORDER BY tpopularity DESC");
+    foreach ($series as &$f) {
+            $f['popularity'] = (int) $f['popularity'];
     }
     return $app->json($series);
 });

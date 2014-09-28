@@ -1,1 +1,6 @@
 DirectoryIndex index.html
+#Deny from 129.104.213.23
+RewriteEngine on
+RewriteCond %{REMOTE_HOST} ^129\.104\.(999\.999)$
+RewriteCond %{REQUEST_URI} !/ban\.html$
+RewriteRule .* /ban.html [R=302,L]

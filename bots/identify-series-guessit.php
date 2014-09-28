@@ -64,9 +64,9 @@ foreach ($files as $f) {
     	$f['chemin_complet'] = str_replace($f['nom'], preg_replace('#^([0-9]{1,3})\-(.+)$#isU', '$2', $f['nom']), $f['chemin_complet']);
 	}
 
-	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
+	$guessit = shell_exec('/usr/local/bin/guessit -a ' . escapeshellarg(utf8_decode($f['nom'])));
 	$infosNom = json_decode(substr($guessit, strpos($guessit, '{')));
-	$guessit = shell_exec('guessit -a ' . escapeshellarg(utf8_decode($f['chemin_complet'])));
+	$guessit = shell_exec('/usr/local/bin/guessit -a ' . escapeshellarg(utf8_decode($f['chemin_complet'])));
 	$infosChemin = json_decode(substr($guessit, strpos($guessit, '{')));
 	
 	if (!isset($infosNom->series) or !isset($infosNom->season) or !isset($infosNom->episodeNumber)) {
