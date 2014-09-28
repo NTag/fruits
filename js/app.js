@@ -86,7 +86,7 @@ fruitsApp.run(function($rootScope, $location, Dossier, browser) {
         return false;
     };
     $rootScope.seuil = function() {
-	    return Math.random() > 0.4;
+	    return Math.random() > 0.3;
     };
     $rootScope.bDlFolder = browser() == 'chrome';
     $rootScope.player = {

@@ -1,3 +1,7 @@
+<div class="text-center" ng-hide="films.length != 1">
+Suite à un problème avec un switch de la DSI, les 3 ftp principaux sont inaccessibles. J'espère qu'ils vont vite rétablir ce problème.
+</div>
+
 <div id="list" infinite-scroll="loadMore()" infinite-scroll-distance="2">
 	<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-8">
 	    <li ng-repeat="film in films | filter:rechercher | orderBy:rtri:rsens() | limitTo:loadNb">
