@@ -26,7 +26,7 @@ SELECT films.tmdbid
 $reqSerie = $bdd->prepare("DELETE FROM demandes
 LEFT JOIN series
 ON series.tmdbid = demandes.tmdbid
-WHERE demandes.type = 'tv' AND series.tmdbid IS NOT NULL;");
+WHERE demandes.type = 'tv' AND series.tmdbid IS NOT NULL");
 
 $reqFilm->execute();
 $reqFilm->closeCursor();
