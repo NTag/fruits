@@ -327,7 +327,7 @@ $app->get('/suggest/search/{q}', function($q) use ($app, $cxContext, $tmdbKey) {
     return $app->json($infos);
 });
 
-$app->get('/suggest/{type}/{tmdbid}', function($type, $tmdbid)) use ($app, $cxContext, $tmdbKey) {
+$app->get('/suggest/{type}/{tmdbid}', function($type, $tmdbid) use ($app, $cxContext, $tmdbKey) {
     if ($type != 'tv' or $type != 'movie') {
         return $app->json(array('status' => 'error', 'message' => 'Wrong type'));
     }
