@@ -18,7 +18,7 @@
     			</thead>
 				<tbody>
 					<tr ng-repeat="result in results.results" ng-class-odd="'calt'" ng-if="result.media_type != 'person'">
-						<td><a title="Demander le téléchargement" ng-click="askFor(result)">{{ result.original_name }}</a></td>
+						<td><a title="Demander le téléchargement" ng-click="askFor(result)">{{ result.original_name && result.original_name || result.original_title }}</a></td>
 						<td>
 							<span ng-if="result.first_air_date">{{ result.first_air_date | amCalendar }}</span>
 							<span ng-if="result.release_date">{{ result.release_date | amCalendar }}</span>
